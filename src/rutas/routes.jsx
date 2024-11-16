@@ -5,12 +5,16 @@ import { AutenticacionRoute } from './AutenticacionRoute';
 import PageHome from '../components/plantilla/PageHome';
 import Login from '../paginas/Login';
 import RecuperarContrasena from '../paginas/RecuperarContrasena';
+import ActualizarContrasena from '../paginas/ActualizarContrasena';
+import RegistroUsuario from '../paginas/RegistroUsuario';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
         <Route>
             <Route path="/login" element={<Login />} />
             <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
+            <Route path="/actualizar-contrasena" element={<ActualizarContrasena />} />
+            <Route path="/registro-usuario" element={<RegistroUsuario />} />
             <Route path="app/" element={<AutenticacionRoute />}>
                 <Route path="home" element={<PageHome />} />
             </Route>

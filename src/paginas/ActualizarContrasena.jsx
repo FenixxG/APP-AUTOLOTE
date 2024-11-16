@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
-import { UsuarioRecuperarContrasena } from '../configuracion/apiUrls';
+import { UsuarioActualizarContrasena } from '../configuracion/apiUrls';
 import { Link } from 'react-router-dom';
 import { mostrarAlerta } from '../components/alertas/sweetAlert';
 import { AxiosPublico } from '../components/axios/Axios';
 import { useNavigate } from 'react-router-dom';
 // ICONOS
-import { MdEmail } from 'react-icons/md';
+import { MdEmail, MdLock, MdPin } from 'react-icons/md';
 // ESTILOS
 import '../styles/Login/Login.css';
 
-const RecuperarContrasena = () => {
+const ActualizarContrasena = () => {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [pin, setPin] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (email === "") {
-                mostrarAlerta("Por favor, ingrese su correo electrónico", "warning");
+            if (email === "" || password === "" || pin === "") {
+                mostrarAlerta("Por favor, complete todos los campos", "warning");
                 return;
             }
-            await AxiosPublico.post(UsuarioRecuperarContrasena, {
-                correo: email
+            await AxiosPublico.post(UsuarioActualizarContrasena, {
+                correo: email,
+                contrasena: password,
+                pin: pin
             })
                 .then((data) => {
-                    mostrarAlerta('Se han enviado las instrucciones a su correo electrónico', "success");
-                    navigate('/actualizar-contrasena');
+                    mostrarAlerta('Contraseña actualizada exitosamente', "success");
+                    navigate('/login');
                 })
                 .catch((error) => {
                     if (Array.isArray(error.response.data)) {
@@ -46,14 +50,13 @@ const RecuperarContrasena = () => {
         <div className="login-container">
             <div className="login-card">
                 <h2>AutoLote</h2>
-                <p>Recuperación de contraseña</p>
+                <p>Actualizar Contraseña</p>
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">Correo Electrónico</label>
                         <div className="input-with-icon">
                             <input
                                 type="email"
-                                id="email"
                                 placeholder="Ingresa tu correo electrónico"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -61,8 +64,34 @@ const RecuperarContrasena = () => {
                             <MdEmail className="input-icon" />
                         </div>
                     </div>
+                    <div className="input-group">
+                        <label htmlFor="password">Nueva Contraseña</label>
+                        <div className="input-with-icon">
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Ingresa tu nueva contraseña"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <MdLock className="input-icon" />
+                        </div>
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="pin">PIN de verificación</label>
+                        <div className="input-with-icon">
+                            <input
+                                type="text"
+                                id="pin"
+                                placeholder="Ingresa el PIN recibido"
+                                value={pin}
+                                onChange={(e) => setPin(e.target.value)}
+                            />
+                            <MdPin className="input-icon" />
+                        </div>
+                    </div>
                     <button type="submit" className="login-button">
-                        Enviar Instrucciones
+                        Actualizar Contraseña
                     </button>
                 </form>
                 <div className="links">
@@ -75,4 +104,4 @@ const RecuperarContrasena = () => {
     );
 };
 
-export default RecuperarContrasena;
+export default ActualizarContrasena;

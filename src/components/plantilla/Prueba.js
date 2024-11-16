@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function Prueba() {
-  return (
-    <div className="page-wrapper">
+  useEffect(() => {
+    // Cambiar el fondo del body al entrar en este componente
+    document.body.style.background = 'none'; // O el color que desees
+
+    // Restablecer el fondo al desmontar el componente
+    return () => {
+      document.body.style.background = ''; // Restablecer a lo que estaba
+        };
+    }, []);
+    return (
+        <div className="page-wrapper">
       <div className="app-container">
         {/* App header starts */}
         <div className="app-header d-flex align-items-center">
