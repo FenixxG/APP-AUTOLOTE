@@ -1,10 +1,10 @@
 import React from 'react';
-
+import Prueba from './Prueba';
 function PageHome() {
     return (
         <React.StrictMode>
             <div className="wrapper">
-                <h1>Home</h1>
+                <Prueba />
             </div>
         </React.StrictMode>
     );

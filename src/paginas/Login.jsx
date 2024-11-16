@@ -8,7 +8,7 @@ import { AxiosPublico } from '../components/axios/Axios';
 // ICONOS
 import { MdEmail } from 'react-icons/md';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import '../components/Login/Login.css';
+import '../styles/Login/Login.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -78,7 +78,7 @@ const Login = () => {
                         <div className="input-with-icon">
                             <input
                                 type="text"
-                                placeholder="Nombre de usuario o correo electrónico"
+                                placeholder="Usuario o correo electrónico"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />

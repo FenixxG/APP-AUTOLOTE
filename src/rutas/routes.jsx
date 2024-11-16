@@ -4,12 +4,13 @@ import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from '
 import { AutenticacionRoute } from './AutenticacionRoute';
 import PageHome from '../components/plantilla/PageHome';
 import Login from '../paginas/Login';
+import RecuperarContrasena from '../paginas/RecuperarContrasena';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
         <Route>
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} /> */}
+            <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
             <Route path="app/" element={<AutenticacionRoute />}>
                 <Route path="home" element={<PageHome />} />
             </Route>
