@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../../Styles/Login/Login.css';
+import './Login.css';
 
 const RecuperarContrasena = () => {
     const [email, setEmail] = useState('');
