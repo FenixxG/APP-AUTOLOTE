@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 // ICONOS
 import { MdEmail } from 'react-icons/md';
 // ESTILOS
-import '../styles/Login/Login.css';
+import '../styles/Login/RecuperarContrasena.css';
 
 const RecuperarContrasena = () => {
     const [email, setEmail] = useState('');
@@ -43,30 +43,31 @@ const RecuperarContrasena = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-card">
+        <div className="recuperar-container">
+            <div className="recuperar-card">
                 <h2>AutoLote</h2>
                 <p>Recuperación de contraseña</p>
                 <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label htmlFor="email">Correo Electrónico</label>
-                        <div className="input-with-icon">
+                    <div className="recuperar-input-group">
+                        <label className="recuperar-label" htmlFor="email">Correo Electrónico</label>
+                        <div className="recuperar-input-with-icon">
                             <input
+                                className="recuperar-input"
                                 type="email"
                                 id="email"
                                 placeholder="Ingresa tu correo electrónico"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <MdEmail className="input-icon" />
+                            <MdEmail className="recuperar-input-icon" />
                         </div>
                     </div>
-                    <button type="submit" className="login-button">
+                    <button type="submit" className="recuperar-button">
                         Enviar Instrucciones
                     </button>
                 </form>
-                <div className="links">
-                    <Link to="/" className="back-to-login">
+                <div className="recuperar-links">
+                    <Link to="/" className="volver-login">
                         Volver al inicio de sesión
                     </Link>
                 </div>

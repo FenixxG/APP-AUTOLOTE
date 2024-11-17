@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 // ICONOS
 import { MdEmail, MdLock, MdPin } from 'react-icons/md';
 // ESTILOS
-import '../styles/Login/Login.css';
+import '../styles/Login/ActualizarContrasena.css';
 
 const ActualizarContrasena = () => {
     const [email, setEmail] = useState('');
@@ -47,55 +47,58 @@ const ActualizarContrasena = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-card">
+        <div className="actualizar-container">
+            <div className="actualizar-card">
                 <h2>AutoLote</h2>
                 <p>Actualizar Contraseña</p>
                 <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label htmlFor="email">Correo Electrónico</label>
-                        <div className="input-with-icon">
+                    <div className="actualizar-input-group">
+                        <label className="actualizar-label" htmlFor="email">Correo Electrónico</label>
+                        <div className="actualizar-input-with-icon">
                             <input
+                                className="actualizar-input"
                                 type="email"
                                 placeholder="Ingresa tu correo electrónico"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <MdEmail className="input-icon" />
+                            <MdEmail className="actualizar-input-icon" />
                         </div>
                     </div>
-                    <div className="input-group">
-                        <label htmlFor="password">Nueva Contraseña</label>
-                        <div className="input-with-icon">
+                    <div className="actualizar-input-group">
+                        <label className="actualizar-label" htmlFor="password">Nueva Contraseña</label>
+                        <div className="actualizar-input-with-icon">
                             <input
+                                className="actualizar-input"
                                 type="password"
                                 id="password"
                                 placeholder="Ingresa tu nueva contraseña"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <MdLock className="input-icon" />
+                            <MdLock className="actualizar-input-icon" />
                         </div>
                     </div>
-                    <div className="input-group">
-                        <label htmlFor="pin">PIN de verificación</label>
-                        <div className="input-with-icon">
+                    <div className="actualizar-input-group">
+                        <label className="actualizar-label" htmlFor="pin">PIN de verificación</label>
+                        <div className="actualizar-input-with-icon">
                             <input
+                                className="actualizar-input"
                                 type="text"
                                 id="pin"
                                 placeholder="Ingresa el PIN recibido"
                                 value={pin}
                                 onChange={(e) => setPin(e.target.value)}
                             />
-                            <MdPin className="input-icon" />
+                            <MdPin className="actualizar-input-icon" />
                         </div>
                     </div>
-                    <button type="submit" className="login-button">
+                    <button type="submit" className="actualizar-button">
                         Actualizar Contraseña
                     </button>
                 </form>
-                <div className="links">
-                    <Link to="/" className="back-to-login">
+                <div className="actualizar-links">
+                    <Link to="/" className="volver-login">
                         Volver al inicio de sesión
                     </Link>
                 </div>

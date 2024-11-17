@@ -6,53 +6,125 @@ import { AxiosPublico } from '../components/axios/Axios';
 // ICONOS
 import { MdEmail, MdPerson, MdPhone, MdLocationOn } from 'react-icons/md';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineIdcard } from 'react-icons/ai';
-import '../styles/Login/Login.css';
+import '../styles/Login/RegistroUsuarioCliente.css';
 
 const RegistroUsuario = () => {
-    const [formData, setFormData] = useState({
-        identidad: '',
-        rtn: '',
-        primernombre: '',
-        segundonombre: '',
-        primerapellido: '',
-        segundoapellido: '',
-        correo: '',
-        nombre: '',
-        contrasena: '',
-        telefono: '',
-        direccion: ''
-    });
+    const TIPO_USUARIO = 'cliente';
+    const [identidad, setIdentidad] = useState('');
+    const [rtn, setRtn] = useState('');
+    const [primernombre, setPrimernombre] = useState('');
+    const [segundonombre, setSegundonombre] = useState('');
+    const [primerapellido, setPrimerapellido] = useState('');
+    const [segundoapellido, setSegundoapellido] = useState('');
+    const [email, setEmail] = useState('');
+    const [nombre, setNombre] = useState('');
+    const [contrasena, setContrasena] = useState('');
+    const [telefonos, setTelefonos] = useState([{ telefono: '' }]);
+    const [direcciones, setDirecciones] = useState([{ direccion: '' }]);
+
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+    const handleChangeTelefonos = (index, value) => {
+        const newTelefonos = [...telefonos];
+        newTelefonos[index].telefono = value;
+        setTelefonos(newTelefonos);
+    };
+
+    const handleChangeDirecciones = (index, value) => {
+        const newDirecciones = [...direcciones];
+        newDirecciones[index].direccion = value;
+        setDirecciones(newDirecciones);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Validación básica
-            const camposRequeridos = ['identidad', 'rtn', 'primernombre', 'segundonombre', 'primerapellido', 'segundoapellido', 'correo', 'nombre', 'contrasena', 'telefono', 'direccion'];
-            for (let campo of camposRequeridos) {
-                if (!formData[campo]) {
-                    mostrarAlerta(`Por favor, complete el campo ${campo}`, "warning");
-                    return;
-                }
+            // Validaciones específicas para cada campo
+            if (!identidad?.trim()) {
+                mostrarAlerta("El campo Identidad es obligatorio", "warning");
+                return;
+            }
+            if (!rtn?.trim()) {
+                mostrarAlerta("El campo RTN es obligatorio", "warning");
+                return;
+            }
+            if (!primernombre?.trim()) {
+                mostrarAlerta("El campo Primer Nombre es obligatorio", "warning");
+                return;
+            }
+            if (!segundonombre?.trim()) {
+                mostrarAlerta("El campo Segundo Nombre es obligatorio", "warning");
+                return;
+            }
+            if (!primerapellido?.trim()) {
+                mostrarAlerta("El campo Primer Apellido es obligatorio", "warning");
+                return;
+            }
+            if (!segundoapellido?.trim()) {
+                mostrarAlerta("El campo Segundo Apellido es obligatorio", "warning");
+                return;
+            }
+            if (!email?.trim()) {
+                mostrarAlerta("El campo Correo Electrónico es obligatorio", "warning");
+                return;
+            }
+            if (!nombre?.trim()) {
+                mostrarAlerta("El campo Nombre de Usuario es obligatorio", "warning");
+                return;
+            }
+            if (!contrasena?.trim()) {
+                mostrarAlerta("El campo Contraseña es obligatorio", "warning");
+                return;
             }
 
-            await AxiosPublico.post(UsuarioRegistrar, formData)
-                .then((response) => {
+            // Validación de teléfonos
+            if (!telefonos[0]?.telefono?.trim()) {
+                mostrarAlerta("Por favor, ingrese al menos un teléfono válido", "warning");
+                return;
+            }
+
+            // Validación de direcciones
+            if (!direcciones[0]?.direccion?.trim()) {
+                mostrarAlerta("Por favor, ingrese una dirección válida", "warning");
+                return;
+            }
+
+            // Validación básica de formato de correo electrónico
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.trim())) {
+                mostrarAlerta("Por favor, ingrese un correo electrónico válido", "warning");
+                return;
+            }
+
+            // Validación de longitud mínima para la contraseña
+            if (contrasena.trim().length < 6) {
+                mostrarAlerta("La contraseña debe tener al menos 6 caracteres", "warning");
+                return;
+            }
+
+            await AxiosPublico.post(UsuarioRegistrar, {
+                identidad: identidad.trim(),
+                rtn: rtn.trim(),
+                primernombre: primernombre.trim(),
+                segundonombre: segundonombre.trim(),
+                primerapellido: primerapellido.trim(),
+                segundoapellido: segundoapellido.trim(),
+                correo: email.trim(),
+                nombre: nombre.trim(),
+                contrasena: contrasena.trim(),
+                telefonos,
+                direcciones,
+                tipoUsuario: TIPO_USUARIO
+            })
+                .then((data) => {
                     mostrarAlerta("Registro exitoso", "success");
                     navigate('/login');
                 })
                 .catch((error) => {
                     if (Array.isArray(error.response.data)) {
                         error.response.data.msj.forEach(f => {
-                            mostrarAlerta(`Campo: ${f.campo} ${f.msj}`, "warning");
+                            mostrarAlerta("Campo: " + f.campo + " " + f.msj, "warning");
                         });
                     } else {
                         mostrarAlerta(error.response.data.error, "warning");
@@ -69,151 +141,160 @@ const RegistroUsuario = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-card">
-                <h2>Registro de Usuario</h2>
-                <p>Únete a AutoLote</p>
-                <form onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <label>Información Personal</label>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="identidad"
-                                placeholder="Identidad"
-                                value={formData.identidad}
-                                onChange={handleChange}
-                            />
-                            <AiOutlineIdcard className="input-icon" />
-                        </div>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="rtn"
-                                placeholder="RTN"
-                                value={formData.rtn}
-                                onChange={handleChange}
-                            />
-                            <AiOutlineIdcard className="input-icon" />
-                        </div>
-                    </div>
-
-                    <div className="input-group">
-                        <label>Nombres</label>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="primernombre"
-                                placeholder="Primer Nombre"
-                                value={formData.primernombre}
-                                onChange={handleChange}
-                            />
-                            <MdPerson className="input-icon" />
-                        </div>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="segundonombre"
-                                placeholder="Segundo Nombre"
-                                value={formData.segundonombre}
-                                onChange={handleChange}
-                            />
-                            <MdPerson className="input-icon" />
-                        </div>
-                    </div>
-
-                    <div className="input-group">
-                        <label>Apellidos</label>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="primerapellido"
-                                placeholder="Primer Apellido"
-                                value={formData.primerapellido}
-                                onChange={handleChange}
-                            />
-                            <MdPerson className="input-icon" />
-                        </div>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="segundoapellido"
-                                placeholder="Segundo Apellido"
-                                value={formData.segundoapellido}
-                                onChange={handleChange}
-                            />
-                            <MdPerson className="input-icon" />
-                        </div>
-                    </div>
-
-                    <div className="input-group">
-                        <label>Información de Contacto</label>
-                        <div className="input-with-icon">
-                            <input
-                                type="email"
-                                name="correo"
-                                placeholder="Correo Electrónico"
-                                value={formData.correo}
-                                onChange={handleChange}
-                            />
-                            <MdEmail className="input-icon" />
-                        </div>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="nombre"
-                                placeholder="Nombre de Usuario"
-                                value={formData.nombre}
-                                onChange={handleChange}
-                            />
-                            <MdPerson className="input-icon" />
-                        </div>
-                        <div className="input-with-icon">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                name="contrasena"
-                                placeholder="Contraseña"
-                                value={formData.contrasena}
-                                onChange={handleChange}
-                            />
-                            <div className="password-toggle" onClick={togglePasswordVisibility}>
-                                {showPassword ?
-                                    <AiOutlineEyeInvisible className="input-icon" /> :
-                                    <AiOutlineEye className="input-icon" />
-                                }
+        <div className="registro-container">
+            <div className="registro-card">
+                <div className="registro-header">
+                    <h2>Registro de Usuario</h2>
+                    <p>Únete a AutoLote</p>
+                </div>
+                <form onSubmit={handleSubmit} className="registro-form">
+                    {/* Columna izquierda */}
+                    <div className="registro-column">
+                        <div className="registro-section">
+                            <div className="registro-section-title">Información Personal</div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="Identidad"
+                                    value={identidad}
+                                    onChange={(e) => setIdentidad(e.target.value)}
+                                />
+                                <AiOutlineIdcard className="registro-input-icon" />
+                            </div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="RTN"
+                                    value={rtn}
+                                    onChange={(e) => setRtn(e.target.value)}
+                                />
+                                <AiOutlineIdcard className="registro-input-icon" />
                             </div>
                         </div>
-                        <div className="input-with-icon">
-                            <input
-                                type="tel"
-                                name="telefono"
-                                placeholder="Teléfono"
-                                value={formData.telefono}
-                                onChange={handleChange}
-                            />
-                            <MdPhone className="input-icon" />
+
+                        <div className="registro-section">
+                            <div className="registro-section-title">Nombres</div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="Primer Nombre"
+                                    value={primernombre}
+                                    onChange={(e) => setPrimernombre(e.target.value)}
+                                />
+                                <MdPerson className="registro-input-icon" />
+                            </div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="Segundo Nombre"
+                                    value={segundonombre}
+                                    onChange={(e) => setSegundonombre(e.target.value)}
+                                />
+                                <MdPerson className="registro-input-icon" />
+                            </div>
                         </div>
-                        <div className="input-with-icon">
-                            <input
-                                type="text"
-                                name="direccion"
-                                placeholder="Dirección"
-                                value={formData.direccion}
-                                onChange={handleChange}
-                            />
-                            <MdLocationOn className="input-icon" />
+
+                        <div className="registro-section">
+                            <div className="registro-section-title">Apellidos</div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="Primer Apellido"
+                                    value={primerapellido}
+                                    onChange={(e) => setPrimerapellido(e.target.value)}
+                                />
+                                <MdPerson className="registro-input-icon" />
+                            </div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="Segundo Apellido"
+                                    value={segundoapellido}
+                                    onChange={(e) => setSegundoapellido(e.target.value)}
+                                />
+                                <MdPerson className="registro-input-icon" />
+                            </div>
                         </div>
                     </div>
 
-                    <button type="submit" className="login-button">
+                    {/* Columna derecha */}
+                    <div className="registro-column">
+                        <div className="registro-section">
+                            <div className="registro-section-title">Información de Contacto</div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="email"
+                                    placeholder="Correo Electrónico"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <MdEmail className="registro-input-icon" />
+                            </div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="Nombre de Usuario"
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
+                                />
+                                <MdPerson className="registro-input-icon" />
+                            </div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Contraseña"
+                                    value={contrasena}
+                                    onChange={(e) => setContrasena(e.target.value)}
+                                />
+                                <div className="password-toggle" onClick={togglePasswordVisibility}>
+                                    {showPassword ?
+                                        <AiOutlineEyeInvisible className="registro-input-icon" /> :
+                                        <AiOutlineEye className="registro-input-icon" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="tel"
+                                    placeholder="Teléfono"
+                                    value={telefonos[0].telefono}
+                                    onChange={(e) => handleChangeTelefonos(0, e.target.value)}
+                                />
+                                <MdPhone className="registro-input-icon" />
+                            </div>
+                            <div className="registro-input-with-icon">
+                                <input
+                                    className="registro-input"
+                                    type="text"
+                                    placeholder="Dirección"
+                                    value={direcciones[0].direccion}
+                                    onChange={(e) => handleChangeDirecciones(0, e.target.value)}
+                                />
+                                <MdLocationOn className="registro-input-icon" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" className="registro-button">
                         Registrarse
                     </button>
+
+                    <div className="registro-links">
+                        <p>
+                            ¿Ya tienes una cuenta? <Link to="/login">Iniciar Sesión</Link>
+                        </p>
+                    </div>
                 </form>
-                <div className="links">
-                    <p>
-                        ¿Ya tienes una cuenta? <Link to="/login">Iniciar Sesión</Link>
-                    </p>
-                </div>
             </div>
         </div>
     );
