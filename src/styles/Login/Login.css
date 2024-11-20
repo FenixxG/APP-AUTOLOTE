@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('../../assets/images/fondoLogin.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    color: #1a1a1a;
+    animation: fadeIn 0.6s ease-out;
+    backdrop-filter: blur(8px);
+}
+
+h2 {
+    margin: 0 0 10px;
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    color: #1a1a1a;
+}
+
+p {
+    margin: 0 0 30px;
+    text-align: center;
+    color: #666;
+    font-size: 15px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.input-with-icon {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 12px;
+    background-color: #fff;
+    color: #1a1a1a;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+input::placeholder {
+    color: #999;
+}
+
+.input-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 18px;
+}
+
+.password-toggle {
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: #2563eb;
+}
+
+.login-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.links {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.links a {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.links a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+.forgot-password {
+    display: block;
+    margin-bottom: 12px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
