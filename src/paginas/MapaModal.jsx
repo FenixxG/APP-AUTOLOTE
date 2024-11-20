@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import '../styles/Mapa/MapaModal.css';
@@ -19,13 +19,14 @@ const debounce = (func, delay) => {
 const MapaModal = ({ latitud, longitud, onClose, onSave }) => {
     const mapRef = useRef(null);
     const markerRef = useRef(null);
+    const [zoom, setZoom] = useState(13); // Nivel de zoom inicial
 
     useEffect(() => {
         if (mapRef.current) {
             const map = L.map(mapRef.current, {
                 doubleClickZoom: false,
                 zoomControl: true,
-            }).setView([latitud, longitud], 13);
+            }).setView([latitud, longitud], zoom);
             
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
@@ -44,7 +45,12 @@ const MapaModal = ({ latitud, longitud, onClose, onSave }) => {
                 const { lat, lng } = e.latlng;
                 markerRef.current.setLatLng([lat, lng]);
                 onSave(lat, lng);
-            }, 500));
+            }, 120));
+
+            map.on('zoomend', debounce((e) => {
+                setZoom(map.getZoom());
+            }, 120));
+            
 
             return () => {
                 map.off();
