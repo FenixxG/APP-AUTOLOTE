@@ -1,0 +1,24 @@
+.app-header {
+  background-color: var(--bs-primary);
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.app-brand img {
+  max-height: 50px;
+}
+
+.header-actions .search-container {
+  position: relative;
+}
+
+.header-actions .search-container input {
+  padding-left: 30px;
+}
+
+.header-actions .search-container .icon-search {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}

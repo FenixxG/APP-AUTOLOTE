@@ -3,10 +3,10 @@ import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from '
 
 import { AutenticacionRoute } from './AutenticacionRoute';
 import PageHome from '../components/plantilla/PageHome';
-import Login from '../paginas/Login';
-import RecuperarContrasena from '../paginas/RecuperarContrasena';
-import ActualizarContrasena from '../paginas/ActualizarContrasena';
-import RegistroUsuario from '../paginas/RegistroUsuario';
+import Login from '../paginas/Login/Login';
+import RecuperarContrasena from '../paginas/Login/RecuperarContrasena';
+import ActualizarContrasena from '../paginas/Login/ActualizarContrasena';
+import RegistroUsuario from '../paginas/Login/RegistroUsuario';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
