@@ -44,17 +44,21 @@ const RegistroUsuario = () => {
         setDirecciones(newDirecciones);
     };
 
+    const handleCloseMapModal = () => {
+        setIsMapModalOpen(false);
+    };
+
     const obtenerUbicacionActual = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     setLatitud(position.coords.latitude);
                     setLongitud(position.coords.longitude);
-                    setIsMapModalOpen(true);
+                    setIsMapModalOpen(true); // Abre el modal
                 },
                 (error) => {
                     console.error("Error al obtener la ubicación: ", error);
-                    alert("No se pudo obtener la ubicación. Asegúrate de que la geolocalización esté habilitada.");
+                    alert("No se pudo obtener la ubicación.");
                 }
             );
         } else {
@@ -168,8 +172,8 @@ const RegistroUsuario = () => {
     const handleSaveLocation = (lat, lng) => {
         setLatitud(lat);
         setLongitud(lng);
-        setIsModalOpen(false); // Cerrar el modal después de guardar
     };
+
 
     return (
         <div className="registro-container">
@@ -354,7 +358,7 @@ const RegistroUsuario = () => {
                 <MapaModal
                     latitud={latitud || 0} // Usar la latitud obtenida
                     longitud={longitud || 0} // Usar la longitud obtenida
-                    onClose={() => setIsMapModalOpen(false)}
+                    onClose={handleCloseMapModal}
                     onSave={handleSaveLocation}
                 />
             )}
