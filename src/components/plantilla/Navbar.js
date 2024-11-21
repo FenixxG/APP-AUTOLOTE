@@ -1,4 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FiUsers, FiX } from 'react-icons/fi';
+import { BiSupport } from "react-icons/bi";
+import { GoGraph } from "react-icons/go";
+import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 
 const Navbar = () => {
     return (
@@ -8,42 +13,61 @@ const Navbar = () => {
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title semibold">Navigation</h5>
                         <button type="button" className="btn btn-danger btn-sm" data-bs-dismiss="offcanvas">
-                            <i className="icon-clear"></i>
+                            <FiX />
                         </button>
                     </div>
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        {/* Dashboard Menu */}
+                        {/* Dashboard Dropdown */}
                         <li className="nav-item dropdown active-link">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i className="icon-stacked_line_chart"></i> Dashboards
+                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <GoGraph /> Dashboards
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item current-page" href="index.html">Analytics</a></li>
-                                <li><a className="dropdown-item" href="reports.html">Reports</a></li>
+                                <li>
+                                    <Link className="dropdown-item current-page" to="/home">
+                                        <span>Analytics</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="/reports">
+                                        <span>Reports</span>
+                                    </Link>
+                                </li>
                             </ul>
                         </li>
 
-                        {/* Apps Menu */}
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i className="icon-apps"></i> Apps
-                            </a>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="chat.html">Chat</a></li>
-                                <li><a className="dropdown-item" href="calendar.html">Calendar</a></li>
-                                <li><a className="dropdown-item" href="email.html">Email</a></li>
-                            </ul>
+                        {/* Clientes Link */}
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/app/clientes">
+                                <FiUsers /> Clientes
+                            </Link>
                         </li>
 
-                        {/* Pages Menu */}
+                        {/* Empleados Link */}
+                        <li className="nav-item">
+                            <Link className="nav-link" to="app/empleados">
+                                <BiSupport /> Empleados
+                            </Link>
+                        </li>
+
+                        {/* Facturas Dropdown */}
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i className="icon-layers"></i> Pages
+                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <LiaFileInvoiceDollarSolid /> Facturas
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="profile.html">Profile</a></li>
-                                <li><a className="dropdown-item" href="settings.html">Settings</a></li>
-                                <li><a className="dropdown-item" href="login.html">Login</a></li>
+                                <li>
+                                    <Link className="dropdown-item" to="/form-inputs">
+                                        <span>Crear Factura</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="/form-inputs">
+                                        <span>Ver Facturas</span>
+                                    </Link>
+                                </li>
                             </ul>
                         </li>
                     </ul>

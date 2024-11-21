@@ -68,7 +68,7 @@ const RecuperarContrasena = () => {
                         </button>
                     </form>
                     <div className="recuperar-links">
-                        <Link to="/" className="volver-login">
+                        <Link to="/login" className="volver-login">
                             Volver al inicio de sesión
                         </Link>
                     </div>

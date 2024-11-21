@@ -1,6 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useContextUsuario } from "../contexto/usuario/UsuarioContext";
 import { mostrarAlerta } from "../components/alertas/sweetAlert";
+import Header from "../components/plantilla/Header";
+import Navbar from "../components/plantilla/Navbar";
 
 export const AutenticacionRoute = ({ children }) => {
     const { token } = useContextUsuario();
@@ -8,5 +10,11 @@ export const AutenticacionRoute = ({ children }) => {
         mostrarAlerta("Token invalido");
         return <Navigate to="/login" />;
     }
-    return <Outlet></Outlet>;
+    return (
+        <div className="page-wrapper">
+            <Header />
+            <Navbar />
+            <Outlet />
+        </div>
+    );
 };

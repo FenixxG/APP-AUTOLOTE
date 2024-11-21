@@ -7,17 +7,23 @@ import Login from '../paginas/Login/Login';
 import RecuperarContrasena from '../paginas/Login/RecuperarContrasena';
 import ActualizarContrasena from '../paginas/Login/ActualizarContrasena';
 import RegistroUsuario from '../paginas/Login/RegistroUsuario';
+import ClientesListarPage from '../paginas/Clientes/ClientesListar';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
         <Route>
+            {/* Rutas de autenticación */}
             <Route path="/login" element={<Login />} />
             <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
             <Route path="/actualizar-contrasena" element={<ActualizarContrasena />} />
             <Route path="/registro-usuario" element={<RegistroUsuario />} />
+
+            {/* Rutas protegidas */}
             <Route path="app/" element={<AutenticacionRoute />}>
                 <Route path="home" element={<PageHome />} />
+                <Route path="clientes" element={<ClientesListarPage />} />
             </Route>
+
             <Route path="*" element={<Navigate to="/login" />} />
         </Route>
     ),

@@ -1,0 +1,74 @@
+/* Estilos básicos de tabla */
+.table-outer {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #d2d2d2;
+    margin-top: 2rem;
+    /* Añadido para separar del breadcrumb */
+}
+
+.table {
+    caption-side: bottom;
+    border-collapse: collapse;
+}
+
+/* Estilos para encabezados y celdas */
+.table thead td {
+    font-weight: 600;
+}
+
+.table tbody td {
+    color: #000000;
+}
+
+.table tr:last-child td {
+    border: 0;
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+
+/* Estilos para la tarjeta contenedora */
+.card {
+    box-shadow: 0 2px 20px 1px #e0e2eb;
+    border: 0;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+/* Estilos para el contenedor */
+.container {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Estilos para el breadcrumb */
+.breadcrumb {
+    margin: 0;
+}
+
+.breadcrumb .breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb .breadcrumb-item i {
+    font-size: 2.1rem;
+    margin-right: 0.75rem;
+    color: #657c60;
+}

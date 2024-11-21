@@ -99,7 +99,7 @@ const ActualizarContrasena = () => {
                         </button>
                     </form>
                     <div className="actualizar-links">
-                        <Link to="/" className="volver-login">
+                        <Link to="/login" className="volver-login">
                             Volver al inicio de sesión
                         </Link>
                     </div>
