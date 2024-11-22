@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -6,6 +7,9 @@ const MapaUbicacion = ({ latitud, longitud, setLatitud, setLongitud }) => {
     const mapRef = useRef(null);
     const mapInstance = useRef(null);
     const [zoom, setZoom] = useState(13); // Nivel de zoom inicial
+    const [coordenadas, setCoordenadas] = useState(null);
+    const [esGuardado, setEsGuardado] = useState(false); // Estado para alternar entre guardar/actualizar
+  
 
     useEffect(() => {
         if (!mapInstance.current) {
