@@ -7,3 +7,5 @@ export const UsuarioRegistrar = 'clientes/guardar';
 
 // RUTAS DE CLIENTES
 export const ClientesListar = 'clientes/listar';
+export const ClientesBuscar = 'clientes/buscar';
+export const ClientesActualizar = 'clientes/editar';

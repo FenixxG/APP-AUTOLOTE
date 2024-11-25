@@ -13463,6 +13463,7 @@ a:hover {
 .img-3x {
   width: 3rem;
   height: 3rem;
+  object-fit: cover;
 }
 
 .img-4x {

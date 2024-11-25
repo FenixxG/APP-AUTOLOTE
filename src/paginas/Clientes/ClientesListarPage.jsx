@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AxiosPublico } from '../../components/axios/Axios';
+import { AxiosPrivado } from '../../components/axios/Axios';
 import { ClientesListar } from '../../configuracion/apiUrls';
 import { mostrarAlerta } from '../../components/alertas/sweetAlert';
 import ClientesLista from '../../components/plantilla/Clientes/ClientesLista';
@@ -14,7 +14,7 @@ const ClientesListarPage = () => {
 
     const obtenerClientes = async () => {
         try {
-            const response = await AxiosPublico.get(ClientesListar);
+            const response = await AxiosPrivado.get(ClientesListar);
             if (response && response.data) {
                 setClientes(response.data);
                 setLoading(false);

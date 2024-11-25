@@ -7,7 +7,8 @@ import Login from '../paginas/Login/Login';
 import RecuperarContrasena from '../paginas/Login/RecuperarContrasena';
 import ActualizarContrasena from '../paginas/Login/ActualizarContrasena';
 import RegistroUsuario from '../paginas/Login/RegistroUsuario';
-import ClientesListarPage from '../paginas/Clientes/ClientesListar';
+import ClientesListarPage from '../paginas/Clientes/ClientesListarPage';
+import ClientesActualizarPage from '../paginas/Clientes/ClientesActualizarPage';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -22,6 +23,7 @@ export const routes = createBrowserRouter(
             <Route path="app/" element={<AutenticacionRoute />}>
                 <Route path="home" element={<PageHome />} />
                 <Route path="clientes" element={<ClientesListarPage />} />
+                <Route path="clientes/editar/:id" element={<ClientesActualizarPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" />} />
