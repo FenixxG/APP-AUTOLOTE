@@ -1,10 +1,15 @@
 import React from 'react';
-import Prueba from './Prueba';
+import Header from './Header';
+import Navbar from './Navbar';
+import Footer from './Footer';
+
 function PageHome() {
     return (
         <React.StrictMode>
-            <div className="wrapper">
-                <Prueba />
+            <div className="page-wrapper">
+                <Header />
+                <Navbar />
+                <Footer />
             </div>
         </React.StrictMode>
     );
