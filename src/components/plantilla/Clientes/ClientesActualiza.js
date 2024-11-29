@@ -4,15 +4,22 @@ import { FiHome } from 'react-icons/fi';
 import { MdArrowForwardIos } from "react-icons/md";
 import Dropzone from 'react-dropzone';
 
-const ClientesActualiza = ({ cliente }) => {
+const ClientesActualiza = ({ cliente, onUpdate }) => {
     const [activeTab, setActiveTab] = useState('datos');
+    const [formData, setFormData] = useState(cliente);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        onUpdate(formData);
     };
 
-    const telefonos = cliente.clientetelefonos || [];
-    const direcciones = cliente.clientedireccions || [];
+    const telefonos = cliente?.clientetelefonos || [];
+    const direcciones = cliente?.clientedireccions || [];
 
     return (
         <div className="app-body">
@@ -100,8 +107,8 @@ const ClientesActualiza = ({ cliente }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="identidad"
-                                                                        value={cliente.identidad || ''}
-                                                                        readOnly
+                                                                        value={formData.identidad || ''}
+                                                                        onChange={handleChange}
                                                                     />
                                                                 </div>
                                                                 <div className="mb-3">
@@ -110,8 +117,8 @@ const ClientesActualiza = ({ cliente }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="rtn"
-                                                                        value={cliente.rtn || ''}
-                                                                        readOnly
+                                                                        value={formData.rtn || ''}
+                                                                        onChange={handleChange}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -122,8 +129,8 @@ const ClientesActualiza = ({ cliente }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="primernombre"
-                                                                        value={cliente.primernombre || ''}
-                                                                        readOnly
+                                                                        value={formData.primernombre || ''}
+                                                                        onChange={handleChange}
                                                                     />
                                                                 </div>
                                                                 <div className="mb-3">
@@ -132,8 +139,8 @@ const ClientesActualiza = ({ cliente }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="segundonombre"
-                                                                        value={cliente.segundonombre || ''}
-                                                                        readOnly
+                                                                        value={formData.segundonombre || ''}
+                                                                        onChange={handleChange}
                                                                     />
                                                                 </div>
                                                                 <div className="mb-3">
@@ -142,8 +149,8 @@ const ClientesActualiza = ({ cliente }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="primerapellido"
-                                                                        value={cliente.primerapellido || ''}
-                                                                        readOnly
+                                                                        value={formData.primerapellido || ''}
+                                                                        onChange={handleChange}
                                                                     />
                                                                 </div>
                                                                 <div className="mb-3">
@@ -152,8 +159,8 @@ const ClientesActualiza = ({ cliente }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="segundoapellido"
-                                                                        value={cliente.segundoapellido || ''}
-                                                                        readOnly
+                                                                        value={formData.segundoapellido || ''}
+                                                                        onChange={handleChange}
                                                                     />
                                                                 </div>
                                                             </div>
@@ -171,39 +178,45 @@ const ClientesActualiza = ({ cliente }) => {
                                                             type="email"
                                                             className="form-control"
                                                             name="correo"
-                                                            value={cliente.correo || ''}
-                                                            readOnly
+                                                            value={formData.correo || ''}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
 
                                                     {/* Teléfonos */}
                                                     <div className="col-12">
                                                         <label className="form-label">Teléfonos</label>
-                                                        {telefonos.map((tel, index) => (
-                                                            <div key={index} className="mb-2 d-flex gap-2">
-                                                                <input
-                                                                    type="tel"
-                                                                    className="form-control"
-                                                                    value={tel.telefono || ''}
-                                                                    readOnly
-                                                                />
-                                                            </div>
-                                                        ))}
+                                                        {telefonos.length > 0
+                                                            ? telefonos.map((tel, index) => (
+                                                                <div key={index} className="mb-2 d-flex gap-2">
+                                                                    <input
+                                                                        type="tel"
+                                                                        className="form-control"
+                                                                        value={tel.telefono || ''}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                            ))
+                                                            : 'No disponible'}
                                                     </div>
 
                                                     {/* Direcciones */}
                                                     <div className="col-12">
                                                         <label className="form-label">Direcciones</label>
-                                                        {direcciones.map((dir, index) => (
-                                                            <div key={index} className="mb-2 d-flex gap-2">
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    value={dir.direccion || ''}
-                                                                    readOnly
-                                                                />
-                                                            </div>
-                                                        ))}
+                                                        {direcciones.length > 0 ? (
+                                                            direcciones.map((dir, index) => (
+                                                                <div key={index} className="mb-2 d-flex gap-2">
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control"
+                                                                        value={dir.direccion || ''}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <p>No hay direcciones registradas</p>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>

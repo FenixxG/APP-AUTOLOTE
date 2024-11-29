@@ -29,6 +29,18 @@ const ClientesActualizarPage = () => {
         }
     };
 
+    // ENVIA LOS DATOS ACTUALIZADOS
+    const actualizarCliente = async (datosActualizados) => {
+        try {
+            const response = await AxiosPrivado.put(`${ClientesActualizar}?id=${id}`, datosActualizados);
+            mostrarAlerta('Cliente actualizado con éxito', 'success');
+            navigate('/app/clientes'); // Redirige a la lista de clientes
+        } catch (error) {
+            console.log('Error al actualizar cliente:', error);
+            mostrarAlerta('Error al actualizar los datos del cliente', 'error');
+        }
+    };
+
     useEffect(() => {
         if (id) {
             obtenerCliente();
@@ -42,6 +54,7 @@ const ClientesActualizarPage = () => {
     return (
         <ClientesActualiza
             cliente={cliente}
+            onUpdate={actualizarCliente}
         />
     );
 };

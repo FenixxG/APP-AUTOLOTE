@@ -9,6 +9,7 @@ import ActualizarContrasena from '../paginas/Login/ActualizarContrasena';
 import RegistroUsuario from '../paginas/Login/RegistroUsuario';
 import ClientesListarPage from '../paginas/Clientes/ClientesListarPage';
 import ClientesActualizarPage from '../paginas/Clientes/ClientesActualizarPage';
+import ClientesEliminarPage from '../paginas/Clientes/ClientesEliminarPage';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -24,6 +25,7 @@ export const routes = createBrowserRouter(
                 <Route path="home" element={<PageHome />} />
                 <Route path="clientes" element={<ClientesListarPage />} />
                 <Route path="clientes/editar/:id" element={<ClientesActualizarPage />} />
+                <Route path="clientes/eliminar/:id" element={<ClientesEliminarPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" />} />

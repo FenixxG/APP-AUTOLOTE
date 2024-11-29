@@ -50,7 +50,7 @@ const ClientesLista = ({ clientes }) => {
                                             <tbody>
                                                 {clientes && clientes.map((cliente, index) => (
                                                     <tr key={cliente.id}>
-                                                        <td>{index + 1}</td>
+                                                        <td>{cliente.id}</td>
                                                         <td>
                                                             <img
                                                                 src={cliente.imagen
@@ -116,6 +116,7 @@ const ClientesLista = ({ clientes }) => {
                                                                 data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-danger"
                                                                 data-bs-title="Eliminar"
+                                                                onClick={() => navigate(`/app/clientes/eliminar/${cliente.id}`)}
                                                             >
                                                                 <FiTrash2 />
                                                             </button>

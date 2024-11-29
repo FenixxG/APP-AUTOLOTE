@@ -9,3 +9,4 @@ export const UsuarioRegistrar = 'clientes/guardar';
 export const ClientesListar = 'clientes/listar';
 export const ClientesBuscar = 'clientes/buscar';
 export const ClientesActualizar = 'clientes/editar';
+export const ClientesEliminar = 'clientes/eliminar';

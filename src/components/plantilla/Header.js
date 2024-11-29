@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiUser, FiSettings, FiMenu } from 'react-icons/fi'; // Importamos los iconos que necesitamos
 import '../../styles/Main/main.css';
-import imagen from '../../assets/images/empleado.jpg';
+import { useContextUsuario } from '../../contexto/usuario/UsuarioContext';
+const userDefaultImage = 'https://placehold.co/400';
 
 // Subcomponente AppBrand
 const AppBrand = () => {
@@ -20,6 +21,12 @@ const AppBrand = () => {
 
 // Subcomponente UserSettings
 const UserSettings = () => {
+    const { usuario, setCerrarSesion } = useContextUsuario();
+
+    const handleLogout = () => {
+        setCerrarSesion();
+    };
+
     return (
         <div className="dropdown ms-3">
             <a
@@ -30,10 +37,10 @@ const UserSettings = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
             >
-                <img src={imagen} className="rounded-2 img-3x" alt="Bootstrap Gallery" />
+                <img src={userDefaultImage} className="rounded-2 img-3x" alt="Bootstrap Gallery" />
                 <div className="ms-2 text-truncate d-lg-block d-none text-white">
-                    <span className="d-flex opacity-50 small">Admin</span>
-                    <span>Taylor Franklin</span>
+                    <span className="d-flex opacity-50 small">{usuario?.tipoUsuario || 'Usuario'}</span>
+                    <span>{usuario?.nombre || 'Usuario sin nombre'}</span>
                 </div>
             </a>
             <div className="dropdown-menu dropdown-menu-end">
@@ -48,7 +55,12 @@ const UserSettings = () => {
                     </Link>
                 </div>
                 <div className="mx-3 mt-2 d-grid">
-                    <Link to="/login" className="btn btn-outline-danger">Cerrar sesión</Link>
+                    <button
+                        onClick={handleLogout}
+                        className="btn btn-outline-danger"
+                    >
+                        Cerrar sesión
+                    </button>
                 </div>
             </div>
         </div>
