@@ -14,14 +14,15 @@
 
 .registro-container {
     width: 100%;
-    max-width: 1200px; /* Aumentado de 1000px a 1200px */
+    max-width: 1200px;
     padding: 20px;
 }
 
 .registro-card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    padding: 40px; /* Aumentado de 40px a 50px para dar más espacio interno */
+    padding: 30px;
+    /* Aumentado de 40px a 50px para dar más espacio interno */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     color: #1a1a1a;
     animation: fadeIn 0.6s ease-out;
@@ -30,7 +31,7 @@
 
 .registro-header {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .registro-header h2 {
@@ -49,7 +50,7 @@
 .registro-form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 50px; /* Aumentado de 30px a 40px para más separación entre columnas */
+    gap: 30px;
 }
 
 @media (max-width: 768px) {
@@ -59,7 +60,7 @@
 }
 
 .registro-section {
-    margin-bottom: 10px; /* Aumentado de 25px a 30px */
+    margin-bottom: 5px;
 }
 
 .registro-section-title {
@@ -83,7 +84,7 @@
 
 .registro-input-with-icon {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .registro-input {
@@ -100,8 +101,8 @@
 
 .registro-input:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    border-color: var(--color-rojo);
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
 }
 
 .registro-input::placeholder {
@@ -117,31 +118,39 @@
     font-size: 18px;
 }
 
+.registro-buttons-container {
+    display: flex;
+    gap: 20px;
+    grid-column: span 2;
+    margin-top: 15px;
+}
+
 .registro-button {
     width: 100%;
     padding: 14px;
     border: none;
     border-radius: 12px;
-    background: #2563eb;
+    background: var(--color-rojo);
     color: white;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 20px;
-    grid-column: span 2;
+    /*margin-top: 20px;
+    grid-column: span 2;*/
 }
 
 @media (max-width: 768px) {
-    .registro-button {
+    .registro-buttons-container {
+        flex-direction: column;
         grid-column: span 1;
     }
 }
 
 .registro-button:hover {
-    background: #1d4ed8;
+    background: var(--color-rojo-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
 }
 
 .registro-links {
@@ -157,14 +166,14 @@
 }
 
 .registro-links a {
-    color: #2563eb;
+    color: var(--color-rojo);
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
 }
 
 .registro-links a:hover {
-    color: #1d4ed8;
+    color: var(--color-rojo-hover);
     text-decoration: underline;
 }
 
@@ -181,6 +190,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

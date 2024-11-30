@@ -19,7 +19,11 @@ const ClientesActualizarPage = () => {
             console.log('Respuesta del servidor:', response.data);
 
             if (response.data && response.data.datos) {
-                setCliente(response.data.datos[0]);
+                const clienteData = response.data.datos[0];
+                // Asegurarse de que los arrays estén inicializados
+                clienteData.clientetelefonos = clienteData.clientetelefonos || [];
+                clienteData.clientedireccions = clienteData.clientedireccions || [];
+                setCliente(clienteData);
                 setLoading(false);
             }
         } catch (error) {

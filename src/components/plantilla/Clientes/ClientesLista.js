@@ -81,7 +81,7 @@ const ClientesLista = ({ clientes }) => {
                                                                 : 'No disponible'}
                                                         </td>
                                                         <td>
-                                                            <div className="text-truncate" style={{ maxWidth: "150px" }}>
+                                                            <div className="text-truncate" style={{ maxWidth: "350px" }}>
                                                                 {cliente.clientedireccions && cliente.clientedireccions.length > 0
                                                                     ? (
                                                                         <div className="position-relative"

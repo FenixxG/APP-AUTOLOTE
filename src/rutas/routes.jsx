@@ -10,6 +10,10 @@ import RegistroUsuario from '../paginas/Login/RegistroUsuario';
 import ClientesListarPage from '../paginas/Clientes/ClientesListarPage';
 import ClientesActualizarPage from '../paginas/Clientes/ClientesActualizarPage';
 import ClientesEliminarPage from '../paginas/Clientes/ClientesEliminarPage';
+import CargosListarPage from '../paginas/Cargos/CargosListarPage';
+import CargosGuardarPage from '../paginas/Cargos/CargosGuardarPage';
+import CargosActualizarPage from '../paginas/Cargos/CargosActualizarPage';
+import CargosEliminarPage from '../paginas/Cargos/CargosEliminarPage';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -23,9 +27,15 @@ export const routes = createBrowserRouter(
             {/* Rutas protegidas */}
             <Route path="app/" element={<AutenticacionRoute />}>
                 <Route path="home" element={<PageHome />} />
+                {/* Rutas de Clientes*/}
                 <Route path="clientes" element={<ClientesListarPage />} />
                 <Route path="clientes/editar/:id" element={<ClientesActualizarPage />} />
                 <Route path="clientes/eliminar/:id" element={<ClientesEliminarPage />} />
+                {/* Rutas de Cargos*/}
+                <Route path="cargos" element={<CargosListarPage />} />
+                <Route path="cargos/guardar" element={<CargosGuardarPage />} />
+                <Route path="cargos/editar/:id" element={<CargosActualizarPage />} />
+                <Route path="cargos/eliminar/:id" element={<CargosEliminarPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" />} />

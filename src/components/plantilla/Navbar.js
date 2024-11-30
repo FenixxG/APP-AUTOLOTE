@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiUsers, FiX } from 'react-icons/fi';
-import { BiSupport } from "react-icons/bi";
+import { GrUserWorker } from "react-icons/gr";
 import { GoGraph } from "react-icons/go";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 
@@ -46,8 +46,15 @@ const Navbar = () => {
 
                         {/* Empleados Link */}
                         <li className="nav-item">
-                            <Link className="nav-link" to="app/empleados">
-                                <BiSupport /> Empleados
+                            <Link className="nav-link" to="/app/empleados">
+                                <GrUserWorker /> Empleados
+                            </Link>
+                        </li>
+
+                        {/* Cargos Link */}
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/app/cargos">
+                                <GrUserWorker /> Cargos
                             </Link>
                         </li>
 

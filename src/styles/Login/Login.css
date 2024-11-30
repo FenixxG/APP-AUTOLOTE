@@ -1,3 +1,14 @@
+/* Paleta de colores para el autolote */
+:root {
+    --color-negro: #1a1a1a;
+    --color-rojo: #dc2626;
+    --color-rojo-hover: #b91c1c;
+    --color-gris-oscuro: #374151;
+    --color-gris-medio: #6b7280;
+    --color-gris-claro: #e5e7eb;
+    --color-blanco: #ffffff;
+}
+
 .login-page {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -76,8 +87,8 @@ input {
 
 input:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    border-color: var(--color-rojo);
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
 }
 
 input::placeholder {
@@ -100,7 +111,7 @@ input::placeholder {
 }
 
 .password-toggle:hover {
-    color: #2563eb;
+    color: var(--color-rojo-hover);
 }
 
 .login-button {
@@ -108,7 +119,7 @@ input::placeholder {
     padding: 14px;
     border: none;
     border-radius: 12px;
-    background: #2563eb;
+    background: var(--color-rojo);
     color: white;
     font-size: 16px;
     font-weight: 500;
@@ -118,9 +129,9 @@ input::placeholder {
 }
 
 .login-button:hover {
-    background: #1d4ed8;
+    background: var(--color-rojo-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
 }
 
 .error-message {
@@ -136,14 +147,14 @@ input::placeholder {
 }
 
 .links a {
-    color: #2563eb;
+    color: var(--color-rojo);
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
 }
 
 .links a:hover {
-    color: #1d4ed8;
+    color: var(--color-rojo-hover);
     text-decoration: underline;
 }
 
@@ -157,6 +168,7 @@ input::placeholder {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

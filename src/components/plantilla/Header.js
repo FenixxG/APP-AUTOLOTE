@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiUser, FiSettings, FiMenu } from 'react-icons/fi'; // Importamos los iconos que necesitamos
 import '../../styles/Main/main.css';
 import { useContextUsuario } from '../../contexto/usuario/UsuarioContext';
+import { mostrarAlertaPregunta } from '../../components/alertas/sweetAlert';
 const userDefaultImage = 'https://placehold.co/400';
 
 // Subcomponente AppBrand
@@ -24,7 +25,11 @@ const UserSettings = () => {
     const { usuario, setCerrarSesion } = useContextUsuario();
 
     const handleLogout = () => {
-        setCerrarSesion();
+        mostrarAlertaPregunta((confirmado) => {
+            if (confirmado) {
+                setCerrarSesion();
+            }
+        }, "¿Está seguro que desea cerrar sesión?");
     };
 
     return (
@@ -39,8 +44,14 @@ const UserSettings = () => {
             >
                 <img src={userDefaultImage} className="rounded-2 img-3x" alt="Bootstrap Gallery" />
                 <div className="ms-2 text-truncate d-lg-block d-none text-white">
-                    <span className="d-flex opacity-50 small">{usuario?.tipoUsuario || 'Usuario'}</span>
-                    <span>{usuario?.nombre || 'Usuario sin nombre'}</span>
+                    <span className="d-flex opacity-50 small">{usuario?.tipo || 'Usuario'}</span>
+                    <span>
+                        {usuario?.datoPersonales ?
+                            `${usuario.datoPersonales.primernombre || ''} ${usuario.datoPersonales.primerapellido || ''}`
+                            //usuario.datoPersonales.nombreCompleto
+                            : 'Usuario sin nombre'
+                        }
+                    </span>
                 </div>
             </a>
             <div className="dropdown-menu dropdown-menu-end">
@@ -55,12 +66,9 @@ const UserSettings = () => {
                     </Link>
                 </div>
                 <div className="mx-3 mt-2 d-grid">
-                    <button
-                        onClick={handleLogout}
-                        className="btn btn-outline-danger"
-                    >
+                    <Link onClick={handleLogout} to="#" className="btn btn-outline-danger">
                         Cerrar sesión
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

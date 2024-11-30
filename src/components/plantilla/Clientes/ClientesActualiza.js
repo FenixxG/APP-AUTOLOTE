@@ -3,10 +3,30 @@ import { Link, useParams } from 'react-router-dom';
 import { FiHome } from 'react-icons/fi';
 import { MdArrowForwardIos } from "react-icons/md";
 import Dropzone from 'react-dropzone';
+import { AxiosImagen } from '../../axios/Axios';
+import { ClienteImagen } from '../../../configuracion/apiUrls';
+import { mostrarAlerta } from '../../../components/alertas/sweetAlert';
 
 const ClientesActualiza = ({ cliente, onUpdate }) => {
     const [activeTab, setActiveTab] = useState('datos');
-    const [formData, setFormData] = useState(cliente);
+    const [formData, setFormData] = useState({
+        ...cliente,
+        telefonos: cliente?.clientetelefonos || [],
+        direcciones: cliente?.clientedireccions || []
+    });
+
+    // Agregar manejadores para teléfonos y direcciones
+    const handleChangeTelefonos = (index, value) => {
+        const newTelefonos = [...formData.telefonos];
+        newTelefonos[index] = { ...newTelefonos[index], telefono: value };
+        setFormData({ ...formData, telefonos: newTelefonos });
+    };
+
+    const handleChangeDirecciones = (index, value) => {
+        const newDirecciones = [...formData.direcciones];
+        newDirecciones[index] = { ...newDirecciones[index], direccion: value };
+        setFormData({ ...formData, direcciones: newDirecciones });
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,6 +36,31 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onUpdate(formData);
+    };
+
+    const handleImageUpload = async (acceptedFiles) => {
+        try {
+            const file = acceptedFiles[0];
+            const formData = new FormData();
+            formData.append('imagen', file);
+            formData.append('id', cliente.id);
+
+            const response = await AxiosImagen.post(ClienteImagen, formData);
+
+            if (response.data.success) {
+                // Actualizar el estado local con la nueva imagen
+                setFormData(prev => ({
+                    ...prev,
+                    imagen: response.data.nombreArchivo
+                }));
+
+                // Mostrar mensaje de éxito
+                mostrarAlerta('Imagen actualizada con éxito', 'success');
+            }
+        } catch (error) {
+            console.log('Error al subir la imagen:', error);
+            mostrarAlerta('Error al subir la imagen', 'error');
+        }
     };
 
     const telefonos = cliente?.clientetelefonos || [];
@@ -76,7 +121,13 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                 <div className="row gx-3">
                                                     <div className="col-sm-4 col-12">
                                                         <div id="update-profile" className="mb-3">
-                                                            <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                                                            <Dropzone
+                                                                onDrop={handleImageUpload}
+                                                                accept={{
+                                                                    'image/*': ['.jpeg', '.jpg', '.png']
+                                                                }}
+                                                                maxFiles={1}
+                                                            >
                                                                 {({ getRootProps, getInputProps }) => (
                                                                     <div {...getRootProps()} className="dropzone sm needsclick dz-clickable">
                                                                         <input {...getInputProps()} />
@@ -112,24 +163,49 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                     />
                                                                 </div>
                                                                 <div className="mb-3">
-                                                                    <label className="form-label">RTN</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control"
-                                                                        name="rtn"
-                                                                        value={formData.rtn || ''}
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <div className="mb-3">
                                                                     <label className="form-label">Primer Nombre</label>
                                                                     <input
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="primernombre"
                                                                         value={formData.primernombre || ''}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <div className="mb-3">
+                                                                    <label className="form-label">Primer Apellido</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control"
+                                                                        name="primerapellido"
+                                                                        value={formData.primerapellido || ''}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                {/*<div className="mb-3">
+                                                                    <label className="form-label">Nombre de Usuario</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control"
+                                                                        name="nombre"
+                                                                        value={formData.nombre || ''}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                </div>
+                                                                <input
+                                                                    type="hidden"
+                                                                    name="tipoUsuario"
+                                                                    value={TIPO_USUARIO}
+                                                                />*/}
+                                                            </div>
+                                                            <div className="col-6">
+                                                                <div className="mb-3">
+                                                                    <label className="form-label">RTN</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control"
+                                                                        name="rtn"
+                                                                        value={formData.rtn || ''}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
@@ -144,16 +220,6 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                     />
                                                                 </div>
                                                                 <div className="mb-3">
-                                                                    <label className="form-label">Primer Apellido</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control"
-                                                                        name="primerapellido"
-                                                                        value={formData.primerapellido || ''}
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                </div>
-                                                                <div className="mb-3">
                                                                     <label className="form-label">Segundo Apellido</label>
                                                                     <input
                                                                         type="text"
@@ -163,6 +229,22 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
+                                                                {/*<div className="mb-3">
+                                                                    <label className="form-label">Contraseña</label>
+                                                                    <input
+                                                                        type={showPassword ? "text" : "password"}
+                                                                        className="form-control"
+                                                                        name="contrasena"
+                                                                        value={formData.contrasena || ''}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                    <div className="password-toggle" onClick={togglePasswordVisibility}>
+                                                                        {showPassword ?
+                                                                            <AiOutlineEyeInvisible className="registro-input-icon" /> :
+                                                                            <AiOutlineEye className="registro-input-icon" />
+                                                                        }
+                                                                    </div>
+                                                                </div>*/}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -193,7 +275,7 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         type="tel"
                                                                         className="form-control"
                                                                         value={tel.telefono || ''}
-                                                                        onChange={handleChange}
+                                                                        onChange={(e) => handleChangeTelefonos(index, e.target.value)}
                                                                     />
                                                                 </div>
                                                             ))
@@ -203,20 +285,18 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                     {/* Direcciones */}
                                                     <div className="col-12">
                                                         <label className="form-label">Direcciones</label>
-                                                        {direcciones.length > 0 ? (
-                                                            direcciones.map((dir, index) => (
+                                                        {direcciones.length > 0
+                                                            ? direcciones.map((dir, index) => (
                                                                 <div key={index} className="mb-2 d-flex gap-2">
                                                                     <input
                                                                         type="text"
                                                                         className="form-control"
                                                                         value={dir.direccion || ''}
-                                                                        onChange={handleChange}
+                                                                        onChange={(e) => handleChangeDirecciones(index, e.target.value)}
                                                                     />
                                                                 </div>
                                                             ))
-                                                        ) : (
-                                                            <p>No hay direcciones registradas</p>
-                                                        )}
+                                                            : 'No disponible'}
                                                     </div>
                                                 </div>
                                             </div>

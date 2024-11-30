@@ -3,10 +3,12 @@ import { UsuarioRegistrar } from '../../configuracion/apiUrls';
 import { Link, useNavigate } from 'react-router-dom';
 import { mostrarAlerta } from '../../components/alertas/sweetAlert';
 import { AxiosPublico } from '../../components/axios/Axios';
-// ICONOS
+import MapaModal from '../Mapa/MapaModal';
+// ICONOS Y ESTILOS
 import { MdEmail, MdPerson, MdPhone, MdLocationOn } from 'react-icons/md';
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineIdcard } from 'react-icons/ai';
 import '../../styles/Login/RegistroUsuarioCliente.css';
+import 'leaflet/dist/leaflet.css';
 
 const RegistroUsuario = () => {
     const TIPO_USUARIO = 'cliente';
@@ -21,9 +23,15 @@ const RegistroUsuario = () => {
     const [contrasena, setContrasena] = useState('');
     const [telefonos, setTelefonos] = useState([{ telefono: '' }]);
     const [direcciones, setDirecciones] = useState([{ direccion: '' }]);
+    const [latitud, setLatitud] = useState(null);
+    const [longitud, setLongitud] = useState(null);
+    const [isLocationFinal, setIsLocationFinal] = useState(false);
 
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+    const [direccion, setDireccion] = useState('');
+    const [isUpdatingLocation, setIsUpdatingLocation] = useState(false);
 
     const handleChangeTelefonos = (index, value) => {
         const newTelefonos = [...telefonos];
@@ -37,10 +45,44 @@ const RegistroUsuario = () => {
         setDirecciones(newDirecciones);
     };
 
+    const handleCloseMapModal = () => {
+        setIsMapModalOpen(false);
+    };
+
+    const obtenerUbicacionActual = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    if (!isLocationFinal) {
+                        setLatitud(position.coords.latitude);
+                        setLongitud(position.coords.longitude);
+                    }
+                    setIsMapModalOpen(true); // Abre el modal
+                },
+                (error) => {
+                    console.error("Error al obtener la ubicación: ", error);
+                    alert("No se pudo obtener la ubicación.");
+                }
+            );
+        } else {
+            alert("La geolocalización no es compatible con este navegador.");
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             // Validaciones específicas para cada campo
+            // Si solo se está actualizando la ubicación, no realizar las demás validaciones
+            if (isUpdatingLocation) {
+                setIsUpdatingLocation(false); // Reinicia el estado
+                return; // Salir de la función
+            }
+            // Verifica si la ubicación está guardada antes de permitir enviar el formulario
+            if (!isLocationFinal) {
+                mostrarAlerta("Por favor, complete los datos restantes", "warning");
+                return;
+            }
             if (!identidad?.trim()) {
                 mostrarAlerta("El campo Identidad es obligatorio", "warning");
                 return;
@@ -85,7 +127,7 @@ const RegistroUsuario = () => {
             }
 
             // Validación de direcciones
-            if (!direcciones[0]?.direccion?.trim()) {
+            if (!direccion?.trim()) {
                 mostrarAlerta("Por favor, ingrese una dirección válida", "warning");
                 return;
             }
@@ -114,7 +156,11 @@ const RegistroUsuario = () => {
                 nombre: nombre.trim(),
                 contrasena: contrasena.trim(),
                 telefonos,
-                direcciones,
+                direcciones: [{
+                    direccion: direccion.trim(),
+                    latitud: latitud,
+                    longitud: longitud
+                }],
                 tipoUsuario: TIPO_USUARIO
             })
                 .then((data) => {
@@ -138,6 +184,26 @@ const RegistroUsuario = () => {
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
+    };
+
+    const obtenerDireccion = async (lat, lng) => {
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+            const data = await response.json();
+            if (data && data.display_name) {
+                setDireccion(data.display_name);
+            }
+        } catch (error) {
+            console.error("Error al obtener la dirección: ", error);
+        }
+    };
+
+    const handleSaveLocation = (lat, lng) => {
+        setLatitud(lat);
+        setLongitud(lng);
+        setIsLocationFinal(true); // Marca que las coordenadas son definitivas
+        obtenerDireccion(lat, lng);
+        setIsUpdatingLocation(true);
     };
 
     return (
@@ -222,6 +288,7 @@ const RegistroUsuario = () => {
                                     <MdPerson className="registro-input-icon" />
                                 </div>
                             </div>
+
                         </div>
 
                         {/* Columna derecha */}
@@ -278,17 +345,42 @@ const RegistroUsuario = () => {
                                         className="registro-input"
                                         type="text"
                                         placeholder="Dirección"
-                                        value={direcciones[0].direccion}
-                                        onChange={(e) => handleChangeDirecciones(0, e.target.value)}
+                                        value={direccion}
+                                        readOnly
+                                    />
+                                    <MdLocationOn className="registro-input-icon" />
+                                </div>
+                                <div className="registro-input-with-icon">
+                                    <input
+                                        className="registro-input"
+                                        type="text"
+                                        placeholder="Latitud"
+                                        value={latitud || ''}
+                                        readOnly
+                                    />
+                                    <MdLocationOn className="registro-input-icon" />
+                                </div>
+                                <div className="registro-input-with-icon">
+                                    <input
+                                        className="registro-input"
+                                        type="text"
+                                        placeholder="Longitud"
+                                        value={longitud || ''}
+                                        readOnly
                                     />
                                     <MdLocationOn className="registro-input-icon" />
                                 </div>
                             </div>
-                        </div>
 
-                        <button type="submit" className="registro-button">
-                            Registrarse
-                        </button>
+                        </div>
+                        <div className="registro-buttons-container">
+                            <button type="submit" className="registro-button">
+                                Registrarse
+                            </button>
+                            <button onClick={obtenerUbicacionActual} className='registro-button'>
+                                {isLocationFinal ? "Actualizar Ubicación" : "Obtener Ubicación"}
+                            </button>
+                        </div>
 
                         <div className="registro-links">
                             <p>
@@ -297,6 +389,16 @@ const RegistroUsuario = () => {
                         </div>
                     </form>
                 </div>
+
+                {isMapModalOpen && (
+                    <MapaModal
+                        latitud={latitud || 0} // Usar la latitud obtenida
+                        longitud={longitud || 0} // Usar la longitud obtenida
+                        onClose={handleCloseMapModal}
+                        onSave={handleSaveLocation}
+                        isUpdate={isLocationFinal}
+                    />
+                )}
             </div>
         </div>
     );

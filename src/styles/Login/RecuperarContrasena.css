@@ -76,8 +76,8 @@ p {
 
 .recuperar-input:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    border-color: var(--color-rojo);
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
 }
 
 .recuperar-input::placeholder {
@@ -98,7 +98,7 @@ p {
     padding: 14px;
     border: none;
     border-radius: 12px;
-    background: #2563eb;
+    background: var(--color-rojo);
     color: white;
     font-size: 16px;
     font-weight: 500;
@@ -108,9 +108,9 @@ p {
 }
 
 .recuperar-button:hover {
-    background: #1d4ed8;
+    background: var(--color-rojo-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
 }
 
 .recuperar-links {
@@ -119,14 +119,14 @@ p {
 }
 
 .recuperar-links a {
-    color: #2563eb;
+    color: var(--color-rojo);
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
 }
 
 .recuperar-links a:hover {
-    color: #1d4ed8;
+    color: var(--color-rojo-hover);
     text-decoration: underline;
 }
 
