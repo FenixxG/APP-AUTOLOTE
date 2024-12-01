@@ -4,6 +4,7 @@ import { FiUsers, FiX } from 'react-icons/fi';
 import { GrUserWorker } from "react-icons/gr";
 import { GoGraph } from "react-icons/go";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { IoCarSport } from "react-icons/io5";
 
 const Navbar = () => {
     return (
@@ -56,6 +57,26 @@ const Navbar = () => {
                             <Link className="nav-link" to="/app/cargos">
                                 <GrUserWorker /> Cargos
                             </Link>
+                        </li>
+
+                        {/* Vehiculos Dropdown */}
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <IoCarSport /> Vehiculos
+                            </a>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link className="dropdown-item" to="/app/carros">
+                                        <span>Carros</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="/app/motocicletas">
+                                        <span>Motocicletas</span>
+                                    </Link>
+                                </li>
+                            </ul>
                         </li>
 
                         {/* Facturas Dropdown */}

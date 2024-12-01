@@ -14,6 +14,10 @@ import CargosListarPage from '../paginas/Cargos/CargosListarPage';
 import CargosGuardarPage from '../paginas/Cargos/CargosGuardarPage';
 import CargosActualizarPage from '../paginas/Cargos/CargosActualizarPage';
 import CargosEliminarPage from '../paginas/Cargos/CargosEliminarPage';
+import EmpleadosListarPage from '../paginas/Empleados/EmpleadosListarPage';
+import EmpleadosGuardarPage from '../paginas/Empleados/EmpleadosGuardarPage';
+import EmpleadosActualizarPage from '../paginas/Empleados/EmpleadosActualizarPage';
+import EmpleadosEliminarPage from '../paginas/Empleados/EmpleadosEliminarPage';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -36,6 +40,11 @@ export const routes = createBrowserRouter(
                 <Route path="cargos/guardar" element={<CargosGuardarPage />} />
                 <Route path="cargos/editar/:id" element={<CargosActualizarPage />} />
                 <Route path="cargos/eliminar/:id" element={<CargosEliminarPage />} />
+                {/* Rutas de Empleados*/}
+                <Route path="empleados" element={<EmpleadosListarPage />} />
+                <Route path="empleados/guardar" element={<EmpleadosGuardarPage />} />
+                <Route path="empleados/editar/:id" element={<EmpleadosActualizarPage />} />
+                <Route path="empleados/eliminar/:id" element={<EmpleadosEliminarPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/login" />} />
