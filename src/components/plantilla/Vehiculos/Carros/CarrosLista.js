@@ -61,6 +61,22 @@ const CarrosLista = ({ carros }) => {
                                                 {carros && carros.map((carro, index) => (
                                                     <tr key={carro.id}>
                                                         <td>{carro.id}</td>
+                                                        <td>
+                                                            <img
+                                                                src={empleado.imagen
+                                                                    ? `${API_IMAGE_URL}${empleado.imagen}`
+                                                                    : userDefaultImage}
+                                                                className="me-2 img-3x rounded-3"
+                                                                alt={`${empleado.primernombre} ${empleado.primerapellido}`}
+                                                                onError={(e) => {
+                                                                    console.log('URL de la imagen:', e.target.src);
+                                                                    console.log('Error específico:', e.target.error);
+                                                                    e.target.onerror = null;
+                                                                    e.target.src = userDefaultImage;
+                                                                }}
+                                                            />
+                                                            {`${empleado.nombreCompleto}`}
+                                                        </td>
                                                         <td>{carro.marca}</td>
                                                         <td>{carro.modelo}</td>
                                                         <td>{carro.anio}</td>
