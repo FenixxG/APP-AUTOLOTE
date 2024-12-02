@@ -18,6 +18,8 @@ import EmpleadosListarPage from '../paginas/Empleados/EmpleadosListarPage';
 import EmpleadosGuardarPage from '../paginas/Empleados/EmpleadosGuardarPage';
 import EmpleadosActualizarPage from '../paginas/Empleados/EmpleadosActualizarPage';
 import EmpleadosEliminarPage from '../paginas/Empleados/EmpleadosEliminarPage';
+import { ClienteLayout } from '../rutas/ClienteLayout';
+import { EmpleadoLayout } from '../rutas/EmpleadoLayout';
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -29,23 +31,37 @@ export const routes = createBrowserRouter(
             <Route path="/registro-usuario" element={<RegistroUsuario />} />
 
             {/* Rutas protegidas */}
-            <Route path="app/" element={<AutenticacionRoute />}>
+            <Route path="app" element={<AutenticacionRoute />}>
                 <Route path="home" element={<PageHome />} />
-                {/* Rutas de Clientes*/}
-                <Route path="clientes" element={<ClientesListarPage />} />
-                <Route path="clientes/editar/:id" element={<ClientesActualizarPage />} />
-                <Route path="clientes/eliminar/:id" element={<ClientesEliminarPage />} />
-                {/* Rutas de Cargos*/}
-                <Route path="cargos" element={<CargosListarPage />} />
-                <Route path="cargos/guardar" element={<CargosGuardarPage />} />
-                <Route path="cargos/editar/:id" element={<CargosActualizarPage />} />
-                <Route path="cargos/eliminar/:id" element={<CargosEliminarPage />} />
-                {/* Rutas de Empleados*/}
-                <Route path="empleados" element={<EmpleadosListarPage />} />
-                <Route path="empleados/guardar" element={<EmpleadosGuardarPage />} />
-                <Route path="empleados/editar/:id" element={<EmpleadosActualizarPage />} />
-                <Route path="empleados/eliminar/:id" element={<EmpleadosEliminarPage />} />
+
+                {/* Rutas de Empleados con su layout */}
+                <Route element={<EmpleadoLayout />}>
+                    {/* Rutas de Empleados */}
+                    <Route path="empleados">
+                        <Route index element={<EmpleadosListarPage />} />
+                        <Route path="guardar" element={<EmpleadosGuardarPage />} />
+                        <Route path="editar/:id" element={<EmpleadosActualizarPage />} />
+                        <Route path="eliminar/:id" element={<EmpleadosEliminarPage />} />
+                    </Route>
+
+                    {/* Rutas de Cargos */}
+                    <Route path="cargos">
+                        <Route index element={<CargosListarPage />} />
+                        <Route path="guardar" element={<CargosGuardarPage />} />
+                        <Route path="editar/:id" element={<CargosActualizarPage />} />
+                        <Route path="eliminar/:id" element={<CargosEliminarPage />} />
+                    </Route>
+
+
+                    {/* Rutas de Clientes con su layout */}
+                    <Route path="clientes">
+                        <Route index element={<ClientesListarPage />} />
+                        <Route path="editar/:id" element={<ClientesActualizarPage />} />
+                        <Route path="eliminar/:id" element={<ClientesEliminarPage />} />
+                    </Route>
+                </Route>
             </Route>
+
 
             <Route path="*" element={<Navigate to="/login" />} />
         </Route>
