@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 const userDefaultImage = 'https://placehold.co/400';
 
 
-const CarrosLista = ({ carros }) => {
-    const API_IMAGE_URL = 'http://localhost:3001/api/imagenes/carros/';
+const MotocicletasLista = ({ motocicletas }) => {
+    const API_IMAGE_URL = 'http://localhost:3001/api/imagenes/motocicletas/';
     const navigate = useNavigate();
 
     return (
@@ -24,7 +24,7 @@ const CarrosLista = ({ carros }) => {
                             <MdArrowForwardIos />
                             <li className="breadcrumb-item">Vehiculos</li>
                             <MdArrowForwardIos />
-                            <li className="breadcrumb-item">Carros</li>
+                            <li className="breadcrumb-item">Motocicletas</li>
                         </ol>
                     </div>
                 </div>
@@ -32,8 +32,8 @@ const CarrosLista = ({ carros }) => {
                 {/* Botón Nuevo Cargo */}
                 <div className="row mb-3">
                     <div className="col-12 d-flex justify-content-end">
-                        <button className="btn btn-primary" type="button" onClick={() => navigate(`/app/vehiculos/carros/guardar`)}>
-                            <b>Nuevo Carro</b>
+                        <button className="btn btn-primary" type="button" onClick={() => navigate(`/app/vehiculos/motocicletas/guardar`)}>
+                            <b>Nueva Motocicleta</b>
                         </button>
                     </div>
                 </div>
@@ -60,16 +60,16 @@ const CarrosLista = ({ carros }) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {carros && carros.map((carro, index) => (
-                                                    <tr key={carro.id}>
-                                                        <td>{carro.id}</td>
+                                                {motocicletas && motocicletas.map((motocicleta, index) => (
+                                                    <tr key={motocicleta.id}>
+                                                        <td>{motocicleta.id}</td>
                                                         <td>
                                                             <img
-                                                                src={carro.imagen
-                                                                    ? `${API_IMAGE_URL}${carro.imagen}`
+                                                                src={motocicleta.imagen
+                                                                    ? `${API_IMAGE_URL}${motocicleta.imagen}`
                                                                     : userDefaultImage}
                                                                 className="me-2 img-3x rounded-3"
-                                                                alt={`${carro.marca} ${carro.modelo}`}
+                                                                alt={`${motocicleta.marca} ${motocicleta.modelo}`}
                                                                 onError={(e) => {
                                                                     console.log('URL de la imagen:', e.target.src);
                                                                     console.log('Error específico:', e.target.error);
@@ -77,16 +77,16 @@ const CarrosLista = ({ carros }) => {
                                                                     e.target.src = userDefaultImage;
                                                                 }}
                                                             />
-                                                            {`${carro.marca}`}
+                                                            {`${motocicleta.marca}`}
                                                         </td>
-                                                        <td>{carro.modelo}</td>
-                                                        <td>{carro.anio}</td>
-                                                        <td>{carro.color}</td>
-                                                        <td>{carro.precio}</td>
-                                                        <td>{carro.estado}</td>
+                                                        <td>{motocicleta.modelo}</td>
+                                                        <td>{motocicleta.anio}</td>
+                                                        <td>{motocicleta.color}</td>
+                                                        <td>{motocicleta.precio}</td>
+                                                        <td>{motocicleta.estado}</td>
                                                         <td>
-                                                            <span className={`badge ${carro.disponible ? 'bg-success' : 'bg-danger'}`}>
-                                                                {carro.disponible ? 'Sí' : 'No'}
+                                                            <span className={`badge ${motocicleta.disponible ? 'bg-success' : 'bg-danger'}`}>
+                                                                {motocicleta.disponible ? 'Sí' : 'No'}
                                                             </span>
                                                             {/*
                                                             <div className="d-flex align-items-center">
@@ -101,7 +101,7 @@ const CarrosLista = ({ carros }) => {
                                                                 data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-primary"
                                                                 data-bs-title="Editar"
-                                                                onClick={() => navigate(`/app/vehiculos/carros/editar/${carro.id}`)}
+                                                                onClick={() => navigate(`/app/vehiculos/motocicletas/editar/${motocicleta.id}`)}
                                                             >
                                                                 <FiEdit />
                                                             </button>
@@ -111,7 +111,7 @@ const CarrosLista = ({ carros }) => {
                                                                 data-bs-placement="top"
                                                                 data-bs-custom-class="custom-tooltip-danger"
                                                                 data-bs-title="Eliminar"
-                                                                onClick={() => navigate(`/app/vehiculos/carros/eliminar/${carro.id}`)}
+                                                                onClick={() => navigate(`/app/vehiculos/motocicletas/eliminar/${motocicleta.id}`)}
                                                             >
                                                                 <FiTrash2 />
                                                             </button>
@@ -131,4 +131,4 @@ const CarrosLista = ({ carros }) => {
     );
 };
 
-export default CarrosLista;
+export default MotocicletasLista;

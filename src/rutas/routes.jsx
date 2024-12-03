@@ -18,6 +18,14 @@ import EmpleadosListarPage from '../paginas/Empleados/EmpleadosListarPage';
 import EmpleadosGuardarPage from '../paginas/Empleados/EmpleadosGuardarPage';
 import EmpleadosActualizarPage from '../paginas/Empleados/EmpleadosActualizarPage';
 import EmpleadosEliminarPage from '../paginas/Empleados/EmpleadosEliminarPage';
+import CarrosListarPage from '../paginas/Vehiculos/Carros/CarrosListarPage';
+import CarrosGuardarPage from '../paginas/Vehiculos/Carros/CarrosGuardarPage';
+import CarrosActualizarPage from '../paginas/Vehiculos/Carros/CarrosActualizarPage';
+import CarrosEliminarPage from '../paginas/Vehiculos/Carros/CarrosEliminarPage';
+import MotocicletasListarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasListarPage';
+import MotocicletasGuardarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasGuardarPage';
+import MotocicletasActualizarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasActualizarPage';
+import MotocicletasEliminarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasEliminarPage';
 import { ClienteLayout } from '../rutas/ClienteLayout';
 import { EmpleadoLayout } from '../rutas/EmpleadoLayout';
 
@@ -52,12 +60,30 @@ export const routes = createBrowserRouter(
                         <Route path="eliminar/:id" element={<CargosEliminarPage />} />
                     </Route>
 
-
-                    {/* Rutas de Clientes con su layout */}
+                    {/* Rutas de Clientes */}
                     <Route path="clientes">
                         <Route index element={<ClientesListarPage />} />
                         <Route path="editar/:id" element={<ClientesActualizarPage />} />
                         <Route path="eliminar/:id" element={<ClientesEliminarPage />} />
+                    </Route>
+
+                    {/* Rutas de Vehiculos */}
+                    <Route path="vehiculos">
+                        {/* Rutas de Carros */}
+                        <Route path="carros">
+                            <Route index element={<CarrosListarPage />} />
+                            <Route path="guardar" element={<CarrosGuardarPage />} />
+                            <Route path="editar/:id" element={<CarrosActualizarPage />} />
+                            <Route path="eliminar/:id" element={<CarrosEliminarPage />} />
+                        </Route>
+
+                        {/* Rutas de Motocicletas */}
+                        <Route path="motocicletas">
+                            <Route index element={<MotocicletasListarPage />} />
+                            <Route path="guardar" element={<MotocicletasGuardarPage />} />
+                            <Route path="editar/:id" element={<MotocicletasActualizarPage />} />
+                            <Route path="eliminar/:id" element={<MotocicletasEliminarPage />} />
+                        </Route>
                     </Route>
                 </Route>
             </Route>
