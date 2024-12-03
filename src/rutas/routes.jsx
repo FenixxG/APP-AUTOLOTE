@@ -3,21 +3,28 @@ import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from '
 
 import { AutenticacionRoute } from './AutenticacionRoute';
 import PageHome from '../components/plantilla/PageHome';
+import PageHomeClientes from '../components/plantilla/plantillaClientes/PageHome';
+/* Rutas de autenticación */
 import Login from '../paginas/Login/Login';
 import RecuperarContrasena from '../paginas/Login/RecuperarContrasena';
 import ActualizarContrasena from '../paginas/Login/ActualizarContrasena';
 import RegistroUsuario from '../paginas/Login/RegistroUsuario';
+/* RUTAS MOSTRADAS PARA LOS EMPLEADOS */
+/* clientes */
 import ClientesListarPage from '../paginas/Clientes/ClientesListarPage';
 import ClientesActualizarPage from '../paginas/Clientes/ClientesActualizarPage';
 import ClientesEliminarPage from '../paginas/Clientes/ClientesEliminarPage';
+/* cargos */
 import CargosListarPage from '../paginas/Cargos/CargosListarPage';
 import CargosGuardarPage from '../paginas/Cargos/CargosGuardarPage';
 import CargosActualizarPage from '../paginas/Cargos/CargosActualizarPage';
 import CargosEliminarPage from '../paginas/Cargos/CargosEliminarPage';
+/* empleados */
 import EmpleadosListarPage from '../paginas/Empleados/EmpleadosListarPage';
 import EmpleadosGuardarPage from '../paginas/Empleados/EmpleadosGuardarPage';
 import EmpleadosActualizarPage from '../paginas/Empleados/EmpleadosActualizarPage';
 import EmpleadosEliminarPage from '../paginas/Empleados/EmpleadosEliminarPage';
+/* vehiculos */
 import CarrosListarPage from '../paginas/Vehiculos/Carros/CarrosListarPage';
 import CarrosGuardarPage from '../paginas/Vehiculos/Carros/CarrosGuardarPage';
 import CarrosActualizarPage from '../paginas/Vehiculos/Carros/CarrosActualizarPage';
@@ -26,6 +33,8 @@ import MotocicletasListarPage from '../paginas/Vehiculos/Motocicletas/Motociclet
 import MotocicletasGuardarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasGuardarPage';
 import MotocicletasActualizarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasActualizarPage';
 import MotocicletasEliminarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasEliminarPage';
+/* RUTAS MOSTRADAS PARA LOS CLIENTES */
+/* LAYOUTS */
 import { ClienteLayout } from '../rutas/ClienteLayout';
 import { EmpleadoLayout } from '../rutas/EmpleadoLayout';
 
@@ -85,6 +94,11 @@ export const routes = createBrowserRouter(
                             <Route path="eliminar/:id" element={<MotocicletasEliminarPage />} />
                         </Route>
                     </Route>
+                </Route>
+
+                {/* Rutas de Clientes con su layout */}
+                <Route element={<ClienteLayout />}>
+                    <Route path="home" element={<PageHomeClientes />} />
                 </Route>
             </Route>
 

@@ -24,18 +24,6 @@ const Navbar = () => {
                                 aria-expanded="false">
                                 <GoGraph /> Dashboards
                             </a>
-                            {/* <ul className="dropdown-menu">
-                                <li>
-                                    <Link className="dropdown-item current-page" to="/home">
-                                        <span>Analytics</span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" to="/reports">
-                                        <span>Reports</span>
-                                    </Link>
-                                </li>
-                            </ul> */}
                         </li>
 
                         {/* Clientes Link */}

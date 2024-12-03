@@ -7,12 +7,10 @@ import Footer from './Footer';
 function PageHome() {
     return (
         <React.StrictMode>
-            <div className="page-wrapper">
-                <Header />
-                <Navbar />
-                <Home />
-                <Footer />
-            </div>
+            <Header />
+            <Navbar />
+            <Home />
+            {/* <Footer /> */}
         </React.StrictMode>
     );
 }
