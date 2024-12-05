@@ -8,7 +8,7 @@ import LogoDark from '../../../assets/images/logo-dark.png';
 import LogoLight from '../../../assets/images/logo-light.png';
 
 // SCSS
-import './style.scss';
+import '../../../styles/Header/style.scss';
 
 // Funcion para hacer el header sticky
 const useHeaderSticky = () => {
@@ -59,7 +59,7 @@ const Header = (props) => {
                                 </div>
                                 <div className="header-action">
                                     <div className="header-button d-none d-lg-block">
-                                        <NavLink className="button flat" to="/add-car">Add Car</NavLink>
+                                        <NavLink className="button flat" to="/add-car">Cerrar sesión</NavLink>
                                     </div>
                                     {/* <div className="mobile-menu-btn d-lg-none">
                                         <OffCanvasMenu position="end" />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AxiosPrivado } from '../../../components/axios/Axios';
-import { MotocicletasListar } from '../../../configuracion/apiUrls';
-import { mostrarAlerta } from '../../../components/alertas/sweetAlert';
+import { MotocicletasEliminar, MotocicletasListar } from '../../../configuracion/apiUrls';
+import { mostrarAlerta, mostrarAlertaPregunta } from '../../../components/alertas/sweetAlert';
 import MotocicletasLista from '../../../components/plantilla/Vehiculos/Motocicletas/MotocicletasLista';
 
 const MotocicletasListarPage = () => {
@@ -26,6 +26,23 @@ const MotocicletasListarPage = () => {
         }
     };
 
+    const eliminarMoto = (id) => {
+        mostrarAlertaPregunta(async (confirmado) => {
+            if (confirmado) {
+                try {
+                    await AxiosPrivado.delete(`${MotocicletasEliminar}?id=${id}`);
+                    mostrarAlerta('Motocicleta eliminada exitosamente', 'success');
+                    // Actualizar la lista de motos
+                    setMotocicletas(motocicletas.filter(motocicletas => motocicletas.id !== id));
+                } catch (error) {
+                    console.error('Error al eliminar esta moto:', error);
+                    mostrarAlerta('Error al eliminar la motocicleta', 'error');
+                }
+            }
+        }, '¿Está seguro que desea eliminar esta motocicleta?');
+    };
+
+
     if (loading) {
         return <div>Cargando...</div>;
     }
@@ -33,6 +50,7 @@ const MotocicletasListarPage = () => {
     return (
         <MotocicletasLista
             motocicletas={motocicletas}
+            eliminarMoto={eliminarMoto}
         />
     );
 };

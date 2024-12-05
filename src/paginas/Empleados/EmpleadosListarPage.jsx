@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AxiosPrivado } from '../../components/axios/Axios';
-import { EmpleadosListar, CargosListar } from '../../configuracion/apiUrls';
-import { mostrarAlerta } from '../../components/alertas/sweetAlert';
+import { EmpleadosListar, CargosListar, EmpleadosEliminar } from '../../configuracion/apiUrls';
+import { mostrarAlertaPregunta, mostrarAlerta } from '../../components/alertas/sweetAlert';
 import EmpleadosLista from '../../components/plantilla/Empleados/EmpleadosLista';
 
 const EmpleadosListarPage = () => {
@@ -35,6 +35,22 @@ const EmpleadosListarPage = () => {
         }
     };
 
+    const eliminarEmpleado = (id) => {
+        mostrarAlertaPregunta(async (confirmado) => {
+            if (confirmado) {
+                try {
+                    await AxiosPrivado.delete(`${EmpleadosEliminar}?id=${id}`);
+                    mostrarAlerta('Empleado eliminado exitosamente', 'success');
+                    // Actualizar la lista de empleados
+                    setEmpleados(empleados.filter(empleado => empleado.id !== id));
+                } catch (error) {
+                    console.error('Error al eliminar empleado:', error);
+                    mostrarAlerta('Error al eliminar el empleado', 'error');
+                }
+            }
+        }, '¿Está seguro que desea eliminar este empleado?');
+    };
+
     if (loading) {
         return <div>Cargando...</div>;
     }
@@ -43,6 +59,7 @@ const EmpleadosListarPage = () => {
         <EmpleadosLista
             empleados={empleados}
             cargos={cargos}
+            eliminarEmpleado={eliminarEmpleado}
         />
     );
 };

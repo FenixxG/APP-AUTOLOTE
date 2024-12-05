@@ -1,0 +1,20 @@
+// Bootstrap CSS
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+// Swiper CSS
+@import 'swiper/css';
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
+// Image Lightbox CSS
+@import 'react-18-image-lightbox/style.css';
+
+// Icons CSS
+@import "./font-awesome/all.min.css";
+@import "./flaticon/flaticon.css";
+
+// Main CSS
+@import "./variable.scss";
+@import "./typography.scss";
+@import "./spacing.scss";
+@import "./style.scss";

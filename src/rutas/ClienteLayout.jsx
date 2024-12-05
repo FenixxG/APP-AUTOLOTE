@@ -4,6 +4,7 @@ import { ClienteState } from "../contexto/cliente/ClienteState";
 import { useContextUsuario } from "../contexto/usuario/UsuarioContext";
 import HeaderCliente from "../components/plantilla/plantillaClientes/Header";
 import Banner from "../components/plantilla/plantillaClientes/Banner";
+import Footer from "../components/plantilla/Footer";
 
 export const ClienteLayout = () => {
     const { usuario } = useContextUsuario();
@@ -18,6 +19,7 @@ export const ClienteLayout = () => {
             <HeaderCliente />
             <Banner />
             <Outlet />
+            <Footer />
         </ClienteState>
     );
 };

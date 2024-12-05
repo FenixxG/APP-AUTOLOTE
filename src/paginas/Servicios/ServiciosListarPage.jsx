@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AxiosPrivado } from '../../components/axios/Axios';
-import { ServiciosListar } from '../../configuracion/apiUrls';
-import { mostrarAlerta } from '../../components/alertas/sweetAlert';
+import { ServiciosListar, ServiciosEliminar } from '../../configuracion/apiUrls';
+import { mostrarAlerta, mostrarAlertaPregunta } from '../../components/alertas/sweetAlert';
 import ServiciosLista from '../../components/plantilla/Servicios/ServiciosLista';
 
 const ServiciosListarPage = () => {
@@ -26,6 +26,22 @@ const ServiciosListarPage = () => {
         }
     };
 
+    const eliminarServicio = (id) => {
+        mostrarAlertaPregunta(async (confirmado) => {
+            if (confirmado) {
+                try {
+                    await AxiosPrivado.delete(`${ServiciosEliminar}?id=${id}`);
+                    mostrarAlerta('Empleado eliminado exitosamente', 'success');
+                    // Actualizar la lista de servicios
+                    setServicios(servicios.filter(servicios => servicios.id !== id));
+                } catch (error) {
+                    console.error('Error al eliminar el servicio:', error);
+                    mostrarAlerta('Error al eliminar el servicio', 'error');
+                }
+            }
+        }, '¿Está seguro que desea eliminar este servicio?');
+    };
+
     if (loading) {
         return <div>Cargando...</div>;
     }
@@ -33,7 +49,7 @@ const ServiciosListarPage = () => {
     return (
         <ServiciosLista
             servicios={servicios}
-            refrescarLista={obtenerServicios}
+            eliminarServicio={eliminarServicio}
         />
     );
 };

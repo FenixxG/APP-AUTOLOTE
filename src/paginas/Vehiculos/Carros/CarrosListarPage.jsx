@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AxiosPrivado } from '../../../components/axios/Axios';
-import { CarrosListar } from '../../../configuracion/apiUrls';
-import { mostrarAlerta } from '../../../components/alertas/sweetAlert';
+import { CarrosListar, CarrosEliminar } from '../../../configuracion/apiUrls';
+import { mostrarAlerta, mostrarAlertaPregunta } from '../../../components/alertas/sweetAlert';
 import CarrosLista from '../../../components/plantilla/Vehiculos/Carros/CarrosLista';
 
 const CarrosListarPage = () => {
@@ -26,6 +26,22 @@ const CarrosListarPage = () => {
         }
     };
 
+    const eliminarCarro = (id) => {
+        mostrarAlertaPregunta(async (confirmado) => {
+            if (confirmado) {
+                try {
+                    await AxiosPrivado.delete(`${CarrosEliminar}?id=${id}`);
+                    mostrarAlerta('Motocicleta eliminado exitosamente', 'success');
+                    // Actualizar la lista de carros
+                    setCarros(carros.filter(carros => carros.id !== id));
+                } catch (error) {
+                    console.error('Error al eliminar el carro:', error);
+                    mostrarAlerta('Error al eliminar el carro', 'error');
+                }
+            }
+        }, '¿Está seguro que desea eliminar este carro?');
+    };
+
     if (loading) {
         return <div>Cargando...</div>;
     }
@@ -33,6 +49,7 @@ const CarrosListarPage = () => {
     return (
         <CarrosLista
             carros={carros}
+            eliminarCarro = {eliminarCarro}
         />
     );
 };

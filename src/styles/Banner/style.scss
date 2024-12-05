@@ -1,0 +1,67 @@
+@import "../../assets/scss/variable";
+
+/*=====================================================*/
+/* Modern Banner 01 */
+/*=====================================================*/
+.banner .banner-bg-text {
+  margin-right: -50px;
+  margin-left: -50px;
+}
+
+.banner.section-bg-half {
+  background-image: linear-gradient(to right, transparent 0%, transparent 39%, #15181f 39%, #15181f 100%);
+  padding-top: 230px;
+  padding-bottom: 130px;
+  background-color: $primary-color;
+}
+
+.banner.section-bg-half .banner-car {
+  padding-right: 100px;
+  padding-left: 100px;
+  margin-top: -50px;
+}
+
+/*==========================================================*/
+/* Responsive CSS */
+/*==========================================================*/
+@media only screen and (max-width: 1199px) {
+  .banner .banner-bg-text {
+    margin-right: 0;
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+
+  .banner.section-bg-half {
+    padding-top: 130px;
+    padding-bottom: 160px;
+  }
+
+  .banner.section-bg-half .banner-car {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: -40px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+
+  .banner.section-bg-half {
+    padding-top: 80px;
+    padding-bottom: 100px;
+  }
+
+  .banner.section-bg-half .banner-car {
+    margin-top: -20px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+
+  .banner.section-bg-half {
+    padding-top: 60px;
+    padding-bottom: 80px;
+  }
+}

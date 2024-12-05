@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const userDefaultImage = 'https://placehold.co/400';
 
 
-const MotocicletasLista = ({ motocicletas }) => {
+const MotocicletasLista = ({ motocicletas, eliminarMoto }) => {
     const API_IMAGE_URL = 'http://localhost:3001/api/imagenes/motocicletas/';
     const navigate = useNavigate();
 
@@ -97,21 +97,13 @@ const MotocicletasLista = ({ motocicletas }) => {
                                                         <td>
                                                             <button
                                                                 className="btn btn-outline-primary btn-sm me-2"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Editar"
                                                                 onClick={() => navigate(`/app/vehiculos/motocicletas/editar/${motocicleta.id}`)}
                                                             >
                                                                 <FiEdit />
                                                             </button>
                                                             <button
                                                                 className="btn btn-outline-danger btn-sm"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-danger"
-                                                                data-bs-title="Eliminar"
-                                                                onClick={() => navigate(`/app/vehiculos/motocicletas/eliminar/${motocicleta.id}`)}
+                                                                onClick={() => eliminarMoto(motocicleta.id)}
                                                             >
                                                                 <FiTrash2 />
                                                             </button>

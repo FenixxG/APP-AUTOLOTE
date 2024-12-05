@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiHome } from 'react-icons/fi';
 import { MdArrowForwardIos } from "react-icons/md";
-import Dropzone from 'react-dropzone';
-import { mostrarAlerta } from '../../../alertas/sweetAlert';
+import { mostrarAlertaOk, mostrarAlertaError } from '../../../alertas/sweetAlert';
 import { AxiosImagen } from '../../../axios/Axios';
-import { CarroImagen } from '../../../../configuracion/apiUrls';
+import { CarroImagen, CarroActualizarImagen } from '../../../../configuracion/apiUrls';
+const userDefaultImage = 'https://placehold.co/400';
 
 const CarrosActualiza = ({ carro, onUpdate }) => {
     const [formData, setFormData] = useState({
@@ -19,8 +19,6 @@ const CarrosActualiza = ({ carro, onUpdate }) => {
         imagen: null
     });
 
-    const [previewImage, setPreviewImage] = useState(null);
-
     useEffect(() => {
         if (carro) {
             setFormData({
@@ -33,43 +31,70 @@ const CarrosActualiza = ({ carro, onUpdate }) => {
                 disponible: carro.disponible,
                 imagen: null
             });
-
-            if (carro.imagen) {
-                setPreviewImage(`${process.env.REACT_APP_API_URL}/imagenes/carros/${carro.imagen}`);
-            }
         }
     }, [carro]);
 
-    const handleImageUpload = async (acceptedFiles) => {
-        try {
-            const file = acceptedFiles[0];
-            const formDataImg = new FormData();
-            formDataImg.append('imagen', file);
-            formDataImg.append('id', carro.id);
+    const API_IMAGE_URL = 'http://localhost:3001/api/imagenes/carros/';
+    const imagen = carro?.imagen ? `${API_IMAGE_URL}${carro.imagen}` : userDefaultImage;
+    console.log(imagen);
 
-            const response = await AxiosImagen.post(CarroImagen, formDataImg);
-
-            if (response.data?.mensaje) {
-                setFormData(prev => ({
-                    ...prev,
-                    imagen: response.data.nombreArchivo
-                }));
-                setPreviewImage(URL.createObjectURL(file));
-                mostrarAlerta('Imagen actualizada con éxito', 'success');
+    const handleFileChange = async event => {
+        const fileObj = event.target.files && event.target.files[0];
+        if (!fileObj) {
+            return;
+        }
+        else {
+            try {
+                let formData = new FormData();
+                formData.append("imagen", event.target.files[0]);
+                await AxiosImagen.put(CarroActualizarImagen + carro.id,
+                    formData,
+                ).then((respuesta) => {
+                    console.log(respuesta);
+                    setFormData((prevState) => ({
+                        ...prevState,
+                        imagen: respuesta.data.imagen,
+                    }));
+                    //ActualizarLista(CarrosListar, setListaCarros);
+                    mostrarAlertaOk("Imagen actualizada correctamente");
+                }).catch((er) => {
+                    console.log(er);
+                    var msjError = "";
+                    switch (er.response.status) {
+                        case 400:
+                            if (er.response.data.error && Array.isArray(er.response.data.error)) {
+                                er.response.data.map(f => {
+                                    msjError += f.msg + '. '
+                                })
+                            }
+                            break;
+                        case 400:
+                            msjError = er.response.data.error;
+                            break;
+                        case 500:
+                            msjError = er.response.data.error;
+                            break;
+                        default:
+                            msjError = "Ocurrió un error desconocido.";
+                            break;
+                    }
+                    mostrarAlertaError(msjError, "error");
+                });
+            } catch (error) {
+                console.log(error);
+                mostrarAlertaError("Error al actualizar la imagen");
             }
-        } catch (error) {
-            console.log('Error al subir la imagen:', error);
-            let mensajeError = 'Error al subir la imagen';
-
-            if (error.response?.data?.mensaje) {
-                mensajeError = error.response.data.mensaje;
-            } else if (error.response?.data?.error) {
-                mensajeError = error.response.data.error;
-            }
-
-            mostrarAlerta(mensajeError, 'error');
         }
     };
+
+    const SeleccionarImagen = () => {
+        console.log("Haciendo clic en SeleccionarImagen");
+        if (inputRef.current) {
+            inputRef.current.click();
+        }
+
+    };
+    const inputRef = useRef(null);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -113,34 +138,37 @@ const CarrosActualiza = ({ carro, onUpdate }) => {
                             <div className="card-body">
                                 <form onSubmit={handleSubmit}>
                                     <div className="row gx-3">
+                                        {/* Cambiamos el tamaño de la columna de la imagen */}
                                         <div className="col-sm-4 col-12">
                                             <div id="update-profile" className="mb-3">
-                                                <Dropzone
-                                                    onDrop={handleImageUpload}
-                                                    accept={{
-                                                        'image/*': ['.jpeg', '.jpg', '.png']
-                                                    }}
-                                                    maxFiles={1}
-                                                >
-                                                    {({ getRootProps, getInputProps }) => (
-                                                        <div {...getRootProps()} className="dropzone sm needsclick dz-clickable">
-                                                            <input {...getInputProps()} />
-                                                            <div className="dz-message needsclick">
-                                                                {previewImage ? (
-                                                                    <img
-                                                                        src={previewImage}
-                                                                        alt="Carro"
-                                                                        className="img-fluid"
-                                                                    />
-                                                                ) : (
-                                                                    <button type="button" className="dz-button">
-                                                                        Actualizar Imagen
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </Dropzone>
+                                                <div className="text-center">
+                                                    <img
+                                                        src={imagen}
+                                                        className="me-2 img-fluid rounded-3"
+                                                        style={{ maxHeight: '300px', width: 'auto' }}
+                                                        alt={`${carro.marca} ${carro.modelo}`}
+                                                        crossOrigin="anonymous"
+                                                        onError={(e) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = userDefaultImage;
+                                                        }}
+                                                    />
+                                                </div>
+                                                <input
+                                                    type="file"
+                                                    style={{ display: 'none' }}
+                                                    ref={inputRef}
+                                                    onChange={handleFileChange}
+                                                />
+                                                <div className="text-center mt-3">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-outline-info"
+                                                        onClick={SeleccionarImagen}
+                                                    >
+                                                        Actualizar
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="col-sm-8 col-12">

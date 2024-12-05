@@ -1,4 +1,4 @@
-@import '../../../assets/scss/_variable.scss';
+@import '../../assets/scss/variable';
 
 .site-header {
   position: relative;
@@ -276,25 +276,6 @@
   background-color: inherit;
 }
 
-/*------------------------------------------*/
-/* Header Search Icon */
-/*------------------------------------------*/
-.header-search {
-  position: relative;
-}
-.header-search .search-btn {
-  width: 25px;
-  border: none;
-  outline: none;
-  background: none;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  color: $title-color;
-}
-.header-search.search-active .search-btn i:before {
-  content: '\f00d';
-}
 
 /*------------------------------------------*/
 /* Header Sticky */
@@ -326,87 +307,6 @@
   100% {
     transform: translateY(0px);
   }
-}
-
-/*------------------------------------------*/
-/* Header 2 */
-/*------------------------------------------*/
-.site-header.header-fancy .header-inner {
-  display: flex;
-  justify-content: space-between;
-}
-.site-header.header-fancy .header-inner .header-left {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.site-header.header-fancy .header-inner .header-right {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  justify-content: space-between;
-}
-.site-header.header-fancy .header-inner .header-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.site-header.header-fancy .header-inner .header-info .info-icon {
-  font-size: 44px;
-  color: $primary-color;
-  margin-right: 17px;
-  position: relative;
-  top: 2px;
-}
-.site-header.header-fancy .header-inner .header-info .info-content {
-  display: flex;
-  flex-direction: column;
-}
-.site-header.header-fancy .header-inner .header-info .info-content .info-number {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 26px;
-}
-
-.site-header.header-fancy.header-transprent .header-inner .header-info .info-content .info-label {
-  color: rgba(255,255,255,0.8);
-}
-.site-header.header-fancy.header-transprent .header-inner .header-info .info-content .info-number {
-  color: #ffffff;
-}
-
-
-/*------------------------------------------*/
-/* Header 3 */
-/*------------------------------------------*/
-.site-header .main-menu {
-  margin-left: auto;
-  margin-right: 20px;
-}
-
-.site-header.header-transprent.header-sticky {
-  background-color: $secondary-color;
-  box-shadow: 0 5px 15px rgba($black-color, 0.05);
-}
-.site-header.header-transprent .topbar {
-  background-color: transparent;
-}
-.site-header.header-transprent .header-wrapper {
-  background: none;
-}
-
-.site-header.header-transprent .main-navbar > li > a,
-.site-header.header-transprent .header-search .search-btn {
-  color: $white-color;
-}
-.site-header.header-transprent .main-navbar > li:has(.submenu > li > a.active) > a {
-  color: $primary-color;
-}
-.site-header .header-action-info .btn-primary {
-  padding: 16px 32px;
-}
-.site-header .header-side-panel .side-panel-btn svg {
-  fill: $white-color;
 }
 
 /*==========================================================*/

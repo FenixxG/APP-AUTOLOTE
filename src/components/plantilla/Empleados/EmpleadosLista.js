@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const userDefaultImage = 'https://placehold.co/400';
 
 
-const EmpleadosLista = ({ empleados, cargos }) => {
+const EmpleadosLista = ({ empleados, eliminarEmpleado, cargos }) => {
     const API_IMAGE_URL = 'http://localhost:3001/api/imagenes/empleados/';
     const navigate = useNavigate();
 
@@ -122,21 +122,13 @@ const EmpleadosLista = ({ empleados, cargos }) => {
                                                         <td>
                                                             <button
                                                                 className="btn btn-outline-primary btn-sm me-2"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Editar"
                                                                 onClick={() => navigate(`/app/empleados/editar/${empleado.id}`)}
                                                             >
                                                                 <FiEdit />
                                                             </button>
                                                             <button
                                                                 className="btn btn-outline-danger btn-sm"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-danger"
-                                                                data-bs-title="Eliminar"
-                                                                onClick={() => navigate(`/app/empleados/eliminar/${empleado.id}`)}
+                                                                onClick={() => eliminarEmpleado(empleado.id)}
                                                             >
                                                                 <FiTrash2 />
                                                             </button>

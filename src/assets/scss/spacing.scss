@@ -1,0 +1,282 @@
+/*=====================================================*/
+/* Container Width */
+/*=====================================================*/
+@media (min-width: 1400px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1240px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .container {
+    max-width: 96%;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+/*=====================================================*/
+/* Section Margin */
+/*=====================================================*/
+.section-mtb {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.section-mt {
+  margin-top: 100px;
+}
+.section-mb {
+  margin-bottom: 100px;
+}
+
+/* Section Margin Small */
+.section-sm-mtb {
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+.section-sm-mt {
+  margin-top: 70px;
+}
+.section-sm-mb {
+  margin-bottom: 70px;
+}
+
+/* Section Margin Extra Small */
+.section-xs-mtb {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.section-xs-mt {
+  margin-top: 50px;
+}
+.section-xs-mb {
+  margin-bottom: 50px;
+}
+
+/*=====================================================*/
+/* Section Padding */
+/*=====================================================*/
+.section-ptb {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.section-pt {
+  padding-top: 100px;
+}
+.section-pb {
+  padding-bottom: 100px;
+}
+
+/* Section Padding Small */
+.section-sm-ptb {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+.section-sm-pt {
+  padding-top: 70px;
+}
+.section-sm-pb {
+  padding-bottom: 70px;
+}
+
+/* Section Padding Extra Small */
+.section-xs-ptb {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.section-xs-pt {
+  padding-top: 50px;
+}
+.section-xs-pb {
+  padding-bottom: 50px;
+}
+
+/* Padding Remove on Template Pages */
+.content-wrapper.page-template {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.content-wrapper.no-padding {
+  padding: 0;
+}
+
+/*=====================================================*/
+/* Grid Col - CSS */
+/*=====================================================*/
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 30px;
+}
+
+.grid-justify-center {
+  justify-items: center;
+}
+.grid-align-center {
+  align-items: center;
+}
+
+.grid-gap-50 {
+  grid-gap: 50px 30px;
+}
+.grid-gap-30 {
+  grid-gap: 30px 30px;
+}
+.grid-gap-15 {
+  grid-gap: 15px 30px;
+}
+.grid-gap-10 {
+  grid-gap: 10px;
+}
+.grid-gap-5 {
+  grid-gap: 5;
+}
+.grid-gap-0 {
+  grid-gap: 0;
+}
+
+.grid-wrapper.grid-lg-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+.grid-wrapper.grid-lg-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-wrapper.grid-lg-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid-wrapper.grid-lg-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid-wrapper.grid-lg-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+.grid-wrapper.grid-lg-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+@media only screen and (max-width: 991px) {
+  .grid-wrapper.grid-md-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .grid-wrapper.grid-md-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-wrapper.grid-md-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-wrapper.grid-md-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid-wrapper.grid-md-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid-wrapper.grid-md-6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .grid-wrapper.grid-sm-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .grid-wrapper.grid-sm-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-wrapper.grid-sm-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-wrapper.grid-sm-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid-wrapper.grid-sm-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid-wrapper.grid-sm-6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .grid-wrapper.grid-xs-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .grid-wrapper.grid-xs-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-wrapper.grid-xs-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-wrapper.grid-xs-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid-wrapper.grid-xs-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid-wrapper.grid-xs-6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/*==========================================================*/
+/* Responsive CSS */
+/*==========================================================*/
+@media only screen and (max-width: 991px) {
+  /* Section Desktop Padding */
+  .section-ptb {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .section-pt {
+    padding-top: 60px;
+  }
+  .section-pb {
+    padding-bottom: 60px;
+  }
+
+  /* Section Padding Small */
+  .section-sm-ptb {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .section-sm-pt {
+    padding-top: 40px;
+  }
+  .section-sm-pb {
+    padding-bottom: 40px;
+  }
+
+  /* Padding Remove on Template Pages */
+  .content-wrapper.page-template {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  /* Section Desktop Padding */
+  .section-ptb {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .section-pt {
+    padding-top: 60px;
+  }
+  .section-pb {
+    padding-bottom: 60px;
+  }
+
+  /* Padding Remove on Template Pages */
+  .content-wrapper.page-template {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}

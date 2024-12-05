@@ -36,6 +36,7 @@ export const CarrosGuardar = 'carros/guardar';
 export const CarrosActualizar = 'carros/editar';
 export const CarrosEliminar = 'carros/eliminar';
 export const CarroImagen = 'imagenes/carros/';
+export const CarroActualizarImagen = 'archivos/imagenes/carro?id=';
 
 // RUTAS DE MOTOCICLETAS
 export const MotocicletasListar = 'motocicletas/listar';
@@ -44,6 +45,7 @@ export const MotocicletasGuardar = 'motocicletas/guardar';
 export const MotocicletasActualizar = 'motocicletas/editar';
 export const MotocicletasEliminar = 'motocicletas/eliminar';
 export const MotocicletaImagen = 'imagenes/motocicletas/';
+export const MotocicletaActualizarImagen = 'archivos/imagenes/motocicleta?id=';
 
 // RUTAS DE SERVICIOS
 export const ServiciosListar = 'servicios/listar';

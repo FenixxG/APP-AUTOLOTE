@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AxiosPrivado } from '../../components/axios/Axios';
-import { CargosListar } from '../../configuracion/apiUrls';
-import { mostrarAlerta } from '../../components/alertas/sweetAlert';
+import { CargosListar, CargosEliminar } from '../../configuracion/apiUrls';
+import { mostrarAlertaPregunta, mostrarAlerta } from '../../components/alertas/sweetAlert';
 import CargosLista from '../../components/plantilla/Cargos/CargosLista';
 
 const CargosListarPage = () => {
@@ -26,6 +26,24 @@ const CargosListarPage = () => {
         }
     };
 
+    const eliminarCargo = (id) => {
+        mostrarAlertaPregunta(async (confirmado) => {
+            if (confirmado) {
+                try {
+                    await AxiosPrivado.delete(`${CargosEliminar}?id=${id}`);
+                    mostrarAlerta('Cargo eliminado exitosamente', 'success');
+                    // Actualizar la lista de cargos
+                    setCargos(cargos.filter(cargos => cargos.id !== id));
+                } catch (error) {
+                    console.error('Error al eliminar el cargo:', error);
+                    mostrarAlerta('Error al eliminar el cargo', 'error');
+                }
+            }
+        }, '¿Está seguro que desea eliminar este cargo?');
+    };
+
+
+
     if (loading) {
         return <div>Cargando...</div>;
     }
@@ -33,7 +51,7 @@ const CargosListarPage = () => {
     return (
         <CargosLista
             cargos={cargos}
-            refrescarLista={obtenerCargos}
+            eliminarCargo={eliminarCargo}
         />
     );
 };

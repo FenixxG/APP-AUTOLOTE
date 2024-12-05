@@ -1,0 +1,958 @@
+@import '../../../../assets/scss/variable';
+
+/*----------------------------------------------------*/
+/* Car List Elements */
+/*----------------------------------------------------*/
+/*************************************
+          Car item
+**************************************/
+
+.car-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.car-item .car-content {
+  background: $white-color;
+  padding: 20px;
+}
+
+.car-item .car-content a {
+  font-size: 16px;
+  font-weight: 600;
+  color: $primary-color;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.car-item .car-content a:hover {
+  color: $title-color;
+}
+
+.car-item .price span {
+  color: $title-color;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.car-item .price span.old-price {
+  color: $body-color;
+  text-decoration: line-through;
+  padding-right: 5px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.car-item .separator {
+  margin-bottom: 15px;
+}
+
+.car-item .separator:after {
+  width: 50px;
+  display: block;
+  margin: auto;
+  content: '';
+  height: 1px;
+  background: $black-color;
+  bottom: 0px;
+  left: 50%;
+  transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -webkit-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -o-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -ms-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -moz-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+}
+
+.car-item .separator:before {
+  content: '';
+  display: block;
+  margin: auto;
+  left: 50%;
+  height: 1px;
+  width: 30px;
+  bottom: -10px;
+  background: $black-color;
+  transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -webkit-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -o-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -ms-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  -moz-transition:
+    width 0.8s ease,
+    background-color 0.8s ease;
+  margin-bottom: 4px;
+}
+
+.car-item:hover .separator:before {
+  width: 50px;
+  left: 0;
+  background: $primary-color;
+}
+
+.car-item:hover .separator:after {
+  width: 30px;
+  left: 0;
+  background: $primary-color;
+}
+
+.car-item .car-list {
+  background: $white-color;
+  color: $title-color;
+  overflow: hidden;
+  bottom: 144px;
+  height: 0;
+  left: 0;
+  position: absolute;
+  transition: $transition-3;
+  width: 100%;
+  z-index: 2;
+  text-align: center;
+}
+
+.car-item .car-list ul {
+  display: flex;
+  justify-content: center;
+}
+
+.car-item .car-list li {
+  font-size: 13px;
+  line-height: 38px;
+  color: $body-color;
+  display: flex;
+  align-items: center;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.car-item .car-list li i {
+  padding-right: 3px;
+  font-size: 12px;
+}
+
+.car-item:hover .car-list {
+  height: 40px;
+  border-bottom: 1px solid $light-color;
+}
+
+.car-item .car-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.car-item .car-overlay-banner {
+  background: rgba($primary-color, 0.7);
+  position: absolute;
+  top: -100%;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: $transition-5;
+}
+
+.car-item .car-overlay-banner ul {
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 40%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.car-item .car-overlay-banner ul li {
+  display: inline-block;
+}
+
+.car-item .car-overlay-banner ul li a {
+  background: transparent;
+  border: 2px solid $white-color;
+  color: $white-color;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 2px;
+}
+
+.car-item .car-overlay-banner ul li a:hover {
+  background: $white-color;
+  color: $primary-color;
+}
+
+.car-item:hover .car-overlay-banner {
+  opacity: 1;
+  top: 0;
+}
+.car-item .car-content {
+  text-align: center;
+}
+.car-item .car-content .star ul {
+  list-style-type: none;
+  display: flex;
+  font-size: 14px;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-item.bg-light .car-content {
+  background: $light-color;
+}
+
+/*************************************
+          Car item Grid
+**************************************/
+.car-item.car-item-grid .car-content {
+  background-color: $white-color;
+  padding: 30px;
+}
+.car-item.car-item-grid .car-details .car-title a {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: $secondary-color;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.car-item.car-item-grid .car-details .car-title a:hover {
+  color: $primary-color;
+}
+
+.car-item.car-item-grid .car-details .car-list {
+  position: inherit;
+  overflow: visible;
+  left: inherit;
+  width: auto;
+  text-align: left;
+  margin-bottom: 20px;
+  margin-top: 0;
+  display: inline-block;
+  height: auto;
+}
+.car-item.car-item-grid .car-details .car-list ul {
+  display: flex;
+}
+.car-item.car-item-grid .car-details .car-list ul li {
+  border: 1px solid $border-color;
+  padding: 1px 10px;
+  font-size: 12px;
+  line-height: 30px;
+  margin-right: 5px;
+}
+
+.car-item.car-item-grid .car-details .car-list ul li i {
+  display: none;
+}
+
+.car-item.car-item-grid:hover .car-details .car-list {
+  height: auto;
+  border: none;
+}
+.car-item.car-item-grid .car-content > p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.car-item.car-item-grid .price .new-price {
+  color: $primary-color;
+}
+
+/*************************************
+          Vehicle Showcase 3
+**************************************/
+.car-item.vehicle-showcase-3 {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #e8e8e8;
+  min-height: inherit;
+  vertical-align: top;
+  margin-top: 30px;
+}
+
+/* Car Overlay Icons */
+.car-item.vehicle-showcase-3 .car-overlay-banner {
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  z-index: 4;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: 0 0!important;
+  transition: all .4s ease-in-out 0s;
+}
+.car-item.vehicle-showcase-3 .car-overlay-banner:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: $primary-color;
+  opacity: .9;
+  transform: scale(.9);
+  transition: all .25s ease-in-out 0s;
+}
+.car-item.vehicle-showcase-3:hover .car-overlay-banner:before {
+  transform: scale(1);
+}
+
+.car-item.vehicle-showcase-3 .car-overlay-banner ul {
+  position: relative;
+  transform: none;
+  top: auto;
+}
+.car-item.vehicle-showcase-3 .car-overlay-banner ul li a {
+  width: 43px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  background: #fff;
+  color: #db2d2e;
+  border: none;
+  border-radius: 5px;
+  transition: all .25s ease-in-out 0s;
+}
+
+/* Car Price */
+.car-item.vehicle-showcase-3 .price-box {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  background: $primary-color;
+  padding: 7px 15px;
+}
+.car-item.vehicle-showcase-3 .price-box .price .old-price {
+  color: $white-color;
+  font-size: 14px;
+  opacity: .7;
+}
+.car-item.vehicle-showcase-3 .price-box .price .new-price {
+  color: $white-color;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Car Content */
+.car-item.vehicle-showcase-3 .car-content {
+  text-align: left;
+}
+.car-item.vehicle-showcase-3 .car-content .car-title {
+  display: inline-block;
+  width: 100%;
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 500;
+  color: $title-color;
+  margin-bottom: 15px;
+}
+.car-item.vehicle-showcase-3 .car-content .car-title a {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all .25s ease-out 0s;
+}
+
+/* Attribute Columns */
+.car-item.vehicle-showcase-3 .car-attribute-columns {
+  display: flex;
+  gap: 15px;
+}
+.car-item.vehicle-showcase-3 .car-attribute-columns > .car-attribute-column {
+  width: calc(33.3333% - 10px);
+}
+.car-item.vehicle-showcase-3 .car-attribute-columns .car-attribute-column-title{
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.car-item.vehicle-showcase-3 .car-attribute-columns .car-attribute-column-value {
+  font-size: 16px;
+  line-height: 24px;
+  color: $title-color;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*************************************
+          Car item list
+**************************************/
+
+.car-item.car-item-list {
+  border: 1px solid $border-color;
+  padding: 20px;
+  display: flex;
+}
+
+.car-item.car-item-list .car-image {
+  width: 33%;
+}
+.car-item.car-item-list .car-details {
+  width: 67%;
+}
+.car-item.car-item-list .car-details .car-content {
+  text-align: left;
+  padding: 0px;
+  padding-left: 25px;
+}
+
+.car-item.car-item-list .car-details .car-content .car-title a {
+  position: relative;
+  margin-bottom: 10px;
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 600;
+  color: $title-color;
+}
+
+.car-item.car-item-list .car-details .car-content .price-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.car-item.car-item-list .price .new-price {
+  color: $primary-color;
+}
+
+.car-item.car-item-list .car-details .car-content .price-box .button {
+  margin-bottom: 0px;
+  padding: 3px 20px;
+  color: $white-color;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.car-item.car-item-list .car-details .car-list {
+  position: inherit;
+  overflow: visible;
+  left: inherit;
+  width: auto;
+  text-align: left;
+  margin-top: 20px;
+  display: inline-block;
+}
+.car-item.car-item-list .car-details .car-list ul {
+  display: flex;
+}
+.car-item.car-item-list .car-details .car-list ul li {
+  border: 1px solid $border-color;
+  padding: 1px 10px;
+  font-size: 12px;
+  line-height: 30px;
+  margin-right: 5px;
+}
+
+.car-item.car-item-list:hover .car-details .car-list {
+  height: auto;
+  border: none;
+}
+
+/*************************************
+          Car Details
+**************************************/
+.car-details .car-price {
+  margin-bottom: 10px;
+  display: block;
+}
+.car-details .car-price span {
+  font-size: 20px;
+  color: $body-color;
+  text-decoration: line-through;
+}
+
+.car-details .car-price span.new-price {
+  font-size: 30px;
+  color: $primary-color;
+  font-weight: bolder;
+  padding-left: 5px;
+  text-decoration: none;
+}
+
+// car-details-model
+
+.car-details-model .modal-content {
+  box-shadow: 0px 0px 60px rgba($black-color, 0.5);
+  padding: 20px;
+  border-radius: 0px;
+}
+
+.car-details-model .modal-header {
+  border-bottom: 0px;
+  background: $secondary-color;
+  padding: 15px 26px;
+  margin: 10px;
+}
+
+.car-details-model .modal-title {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-family: $title-font;
+  position: relative;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  display: inline-block;
+  color: $white-color;
+  margin-top: 3px;
+}
+
+.car-details-model .modal-header .btn-close {
+  color: $white-color;
+  background-color: $white-color;
+  border-radius: 3px;
+}
+
+.car-details-sidebar .details-weight {
+  margin-bottom: 40px;
+}
+.car-details-sidebar .details-weight:last-child {
+  margin-bottom: 0px;
+}
+.car-details-sidebar .details-weight .weight-title {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  color: $title-color;
+  margin-top: 0px;
+  text-transform: uppercase;
+}
+
+.car-details-sidebar .details-weight .weight-title::before {
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: $primary-color;
+  left: 0;
+  bottom: 0px;
+}
+
+.car-details-sidebar .details-block ul li {
+  display: block;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 10px;
+}
+
+.car-details-sidebar .details-block ul li:last-child {
+  border-bottom: 0px;
+}
+
+.car-details-sidebar .details-block ul li i {
+  color: $title-color;
+  padding-right: 15px;;
+}
+
+.car-details-sidebar .details-block ul li span {
+  width: 150px;
+  display: inline-block;
+}
+
+.car-details-sidebar .details-block ul li strong {
+  display: inline-block;
+  text-align: right;
+  color: $title-color;
+}
+
+.details-social .widget-social-info ul.social-list {
+  gap: 0;
+}
+.details-social .widget-social-info ul.social-list li a {
+  margin-right: 15px;
+  margin-bottom: 15px;
+  display: block;
+  color: $title-color;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+.details-social .widget-social-info ul.social-list li a:hover {
+  color: $primary-color;
+}
+
+.details-social ul li a i {
+  padding-right: 5px;
+}
+
+.details-phone.details-weight
+  .feature-box.feature-box-style-03
+  .feature-box-description
+  .feature-box-title {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.details-location .location-map {
+  height: 210px;
+}
+
+.car-details-two .feature-car {
+  margin-top: 80px;
+}
+
+.extra-feature .pgs-list {
+  display: grid;
+  gap: 0 24px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.extra-feature .pgs-list li {
+  margin-bottom: 0;
+  line-height: 30px;
+}
+.extra-feature .pgs-list li i {
+  padding-top: 8px;
+}
+
+.car-img-slider {
+  margin-bottom: 40px;
+}
+
+.car-detail-tab {
+  padding-bottom: 24px;
+}
+
+.car-detail-tab .tabs-main.tabs-default .tab-content {
+  margin-top: 20px;
+}
+.car-detail-tab .table tr td {
+  padding: 12px 20px;
+  border: 1px solid $border-color;
+}
+.car-detail-tab .table .info-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.car-details .feature-car {
+  margin-top: 40px;
+}
+
+.details-nav {
+  margin: 30px 0px 40px;
+}
+
+.details-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.details-nav ul li {
+  margin-right: 10px;
+  display: inline-block;
+  line-height: 30px;
+}
+
+.details-nav ul li a {
+  color: $body-color;
+  border: 1px solid $border-color;
+  padding: 7px 15px;
+  display: block;
+  margin-bottom: 10px;
+  transition: $transition-3;
+}
+
+.details-nav ul li a i {
+  padding-right: 10px;
+  color: $primary-color;
+  transition: $transition-3;
+}
+
+.details-nav ul li a:hover {
+  border: 1px solid $primary-color;
+  background: $primary-color;
+  color: $white-color;
+}
+.details-nav ul li a:hover i {
+  color: $white-color;
+}
+
+.car-sorting-options-box {
+  border: 1px solid $border-color;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.car-sorting-options-box label {
+  color: $black-color;
+  font-size: 14px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+.sorting-options {
+  padding-top: 10px;
+}
+.sorting-options .change-view-button a {
+  display: inline-block;
+  font-size: 24px;
+  margin-right: 10px;
+  color: $secondary-color;
+}
+.sorting-options .change-view-button a:hover,
+.sorting-options .change-view-button a.active {
+  color: $primary-color;
+}
+
+.car-sorting-options-box .css-b62m3t-container .css-13cymwt-control {
+  border-radius: 0;
+  border: 1px solid $border-color;
+  height: 40px;
+}
+
+.car-sorting-options-box .css-b62m3t-container .css-t3ipsp-control {
+  border-radius: 0;
+  border: 1px solid $border-color;
+  height: 40px;
+  box-shadow: none;
+}
+
+.car-sorting-options-box .css-b62m3t-container .css-1nmdiq5-menu {
+  border: 1px solid $border-color !important;
+  top: 40px;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-radius: 0 !important;
+  max-height: 170px;
+  overflow: auto;
+  background-color: $white-color;
+}
+.car-sorting-options-box .css-1u9des2-indicatorSeparator {
+  display: none !important;
+}
+
+/* Car Listing Sidebar */
+
+.listing-sidebar .widget {
+  border: 1px solid $border-color;
+}
+.listing-sidebar .widget .widget-search {
+  padding: 20px;
+}
+
+.listing-sidebar .widget-search .title {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  color: $title-color;
+}
+
+.listing-sidebar .widget-search .title::before {
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: $primary-color;
+  left: 0;
+  bottom: 0px;
+}
+
+.listing-sidebar .widget-search .advanced-search-list {
+  list-style-type: none;
+}
+.listing-sidebar .widget-search .advanced-search-list li {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+.listing-sidebar .widget-search .advanced-search-list li i {
+  padding-right: 10px;
+}
+.listing-sidebar .widget-search .advanced-search-list li .number {
+  font-size: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: $radius-100;
+  color: $white-color;
+  background: $primary-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.search-list-group .list-group {
+  list-style-type: none;
+}
+
+.search-list-group .list-group ul > li {
+  list-style-type: none;
+}
+
+.search-list-group ul.list-group li {
+  list-style: none;
+  position: relative;
+}
+.search-list-group ul.list-group .list-group-item {
+  border: 1px solid rgba($black-color, 0.125);
+  border-left: 0;
+  border-right: 0;
+  padding: 13px 15px;
+  background-color: $white-color;
+}
+.search-list-group ul.list-group .list-group-item:first-child {
+  border-radius: 0px;
+}
+.search-list-group ul.list-group .list-group-item:last-child {
+  border-bottom: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.search-list-group ul.list-group .list-group-item + .list-group-item {
+  border-top: none;
+}
+.search-list-group ul.list-group .list-group-item a {
+  color: $secondary-color;
+  position: relative;
+  display: block;
+}
+.search-list-group ul.list-group .list-group-item a:after {
+  position: absolute;
+  content: '\f078';
+  font-family: 'Font Awesome 6 Free';
+  right: 0;
+  top: 0;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.search-list-group ul.list-group .list-group-item a.active:after {
+  content: '\f077';
+}
+
+.search-list-group ul.list-group .list-group-item ul {
+  display: none;
+  transition: $transition-6;
+  height: 0;
+}
+.search-list-group ul.list-group .list-group-item a.active ~ ul {
+  display: block;
+  height: auto;
+}
+
+.search-list-group ul.list-group .list-group-item ul li .form-check {
+  margin-bottom: 8px;
+}
+
+/*==========================================================*/
+/* Responsive CSS */
+/*==========================================================*/
+@media only screen and (max-width: 991px) {
+  .car-item.car-item-list {
+    flex-direction: column;
+  }
+
+  .car-item.car-item-list .car-image {
+    width: 100%;
+  }
+  .car-item.car-item-list .car-image img {
+    width: 100%;
+  }
+  .car-item.car-item-list .car-details {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .car-item.car-item-list .car-details .car-content {
+    padding-left: 0;
+  }
+
+  .extra-feature .pgs-list {
+    gap: 20px 24px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .car-details-two .car-details-sidebar {
+    margin-top: 40px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .car-details-sidebar {
+    margin-top: 40px;
+  }
+  .car-details-model .modal-content {
+    padding: 10px;
+  }
+  .car-details-model .modal-header {
+    padding: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .extra-feature .pgs-list {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5px;
+  }
+  .car-details-model .modal-content {
+    padding: 0px;
+  }
+  .car-details-model .modal-title {
+    font-size: 20px;
+  }
+  .details-nav ul {
+    flex-direction: column;
+  }
+  .details-nav ul li a {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+}

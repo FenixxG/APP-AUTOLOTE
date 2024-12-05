@@ -5,7 +5,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 
-const CargosLista = ({ cargos }) => {
+const CargosLista = ({ cargos, eliminarCargo }) => {
     const navigate = useNavigate();
 
     return (
@@ -66,21 +66,13 @@ const CargosLista = ({ cargos }) => {
                                                         <td>
                                                             <button
                                                                 className="btn btn-outline-primary btn-sm me-2"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Editar"
                                                                 onClick={() => navigate(`/app/cargos/editar/${cargo.id}`)}
                                                             >
                                                                 <FiEdit />
                                                             </button>
                                                             <button
                                                                 className="btn btn-outline-danger btn-sm"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-danger"
-                                                                data-bs-title="Eliminar"
-                                                                onClick={() => navigate(`/app/cargos/eliminar/${cargo.id}`)}
+                                                                onClick={() => eliminarCargo(cargo.id)}
                                                             >
                                                                 <FiTrash2 />
                                                             </button>

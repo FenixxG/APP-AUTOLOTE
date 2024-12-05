@@ -47,58 +47,6 @@ function Navbar() {
                         )}
                     </Link>
                 </li>
-                {/* Pages */}
-                <li
-                    key="1"
-                    className={`megamenu ${activeItems.includes(1) ? 'menu-active' : ''}`}
-                >
-                    <Link to="#">
-                        {' '}
-                        Pages
-                        {showLink ? (
-                            <span onClick={() => toggleItem(1)} className="submenu-trigger">
-                                <i className="fa-solid fa-angle-down"></i>
-                            </span>
-                        ) : (
-                            <i className="fa-solid fa-angle-down"></i>
-                        )}
-                    </Link>
-                </li>
-
-                {/* Blog */}
-                <li
-                    key="2"
-                    className={`has-dropdown ${activeItems.includes(2) ? 'menu-active' : ''
-                        }`}
-                >
-                    <Link to="#">
-                        Blog{' '}
-                        {showLink ? (
-                            <span onClick={() => toggleItem(2)} className="submenu-trigger">
-                                <i className="fa-solid fa-angle-down"></i>
-                            </span>
-                        ) : (
-                            <i className="fa-solid fa-angle-down"></i>
-                        )}
-                    </Link>
-                    <ul className="submenu">
-                        <li key="blo-1">
-                            <NavLink to="/blog">Blog Classic</NavLink>
-                        </li>
-                        <li key="blo-2">
-                            <NavLink to="/blog-left-sidebar">Blog Left Sidebar</NavLink>
-                        </li>
-                        <li key="blo-3">
-                            <NavLink to="/blog-right-sidebar">Blog Right Sidebar</NavLink>
-                        </li>
-                        <li key="blo-4">
-                            <NavLink to="/blog-grid">Blog Grid</NavLink>
-                        </li>
-                        <li key="blo-5">
-                            <NavLink to="/blog-details/1">Blog Single</NavLink>
-                        </li>
-                    </ul>
-                </li>
 
                 {/* Car Listing */}
                 <li
@@ -152,22 +100,6 @@ function Navbar() {
                     </ul>
                 </li>
 
-                {/* Elements */}
-                <li
-                    key="5"
-                    className={`megamenu ${activeItems.includes(5) ? 'menu-active' : ''}`}
-                >
-                    <Link to="#">
-                        Elements{' '}
-                        {showLink ? (
-                            <span onClick={() => toggleItem(5)} className="submenu-trigger">
-                                <i className="fa-solid fa-angle-down"></i>
-                            </span>
-                        ) : (
-                            <i className="fa-solid fa-angle-down"></i>
-                        )}
-                    </Link>
-                </li>
             </ul>
         </>
     );

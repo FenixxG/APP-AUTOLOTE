@@ -5,7 +5,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 
-const ServiciosLista = ({ servicios }) => {
+const ServiciosLista = ({ servicios, eliminarServicio }) => {
     const navigate = useNavigate();
 
     return (
@@ -59,21 +59,13 @@ const ServiciosLista = ({ servicios }) => {
                                                         <td>
                                                             <button
                                                                 className="btn btn-outline-primary btn-sm me-2"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Editar"
                                                                 onClick={() => navigate(`/app/servicios/editar/${servicio.id}`)}
                                                             >
                                                                 <FiEdit />
                                                             </button>
                                                             <button
                                                                 className="btn btn-outline-danger btn-sm"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-danger"
-                                                                data-bs-title="Eliminar"
-                                                                onClick={() => navigate(`/app/servicios/eliminar/${servicio.id}`)}
+                                                                onClick={() => eliminarServicio(servicio.id)}
                                                             >
                                                                 <FiTrash2 />
                                                             </button>

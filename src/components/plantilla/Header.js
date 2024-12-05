@@ -60,10 +60,6 @@ const UserSettings = () => {
                         <FiUser className="border border-primary text-primary" />
                         Perfil
                     </Link>
-                    <Link className="dropdown-item" to="/settings">
-                        <FiSettings className="border border-danger text-danger" />
-                        Configuración
-                    </Link>
                 </div>
                 <div className="mx-3 mt-2 d-grid">
                     <Link onClick={handleLogout} to="#" className="btn btn-outline-danger">

@@ -7,9 +7,64 @@ import { GrUserWorker } from "react-icons/gr";
 import { PiMotorcycleFill } from "react-icons/pi";
 import { IoCarSport } from "react-icons/io5";
 import { useContextUsuario } from '../../contexto/usuario/UsuarioContext';
+import ReactApexChart from 'react-apexcharts';
 
 const Home = ({ totales }) => {
     const { usuario } = useContextUsuario();
+
+    // Configuración para el gráfico de barras
+    const barChartOptions = {
+        chart: {
+            type: 'bar',
+            toolbar: {
+                show: false
+            }
+        },
+        colors: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e'],
+        plotOptions: {
+            bar: {
+                borderRadius: 4,
+                horizontal: false,
+                columnWidth: '55%',
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: ['Clientes', 'Empleados', 'Carros', 'Motocicletas']
+        },
+        title: {
+            text: 'Resumen General',
+            align: 'left',
+            style: {
+                fontSize: '16px'
+            }
+        }
+    };
+
+    // Configuración para el gráfico circular
+    const pieChartOptions = {
+        chart: {
+            type: 'donut',
+        },
+        colors: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e'],
+        labels: ['Clientes', 'Empleados', 'Carros', 'Motocicletas'],
+        title: {
+            text: 'Distribución',
+            align: 'left',
+            style: {
+                fontSize: '16px'
+            }
+        }
+    };
+
+    const chartSeries = [
+        totales?.clientes || 0,
+        totales?.empleados || 0,
+        totales?.carros || 0,
+        totales?.motocicletas || 0
+    ];
 
     return (
         <div className="app-body">
@@ -117,6 +172,40 @@ const Home = ({ totales }) => {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Nueva fila para los gráficos */}
+                <div className="row gx-3">
+                    {/* Gráfico de Barras */}
+                    <div className="col-xl-8 col-lg-7">
+                        <div className="card mb-3">
+                            <div className="card-body">
+                                <ReactApexChart
+                                    options={barChartOptions}
+                                    series={[{
+                                        name: 'Total',
+                                        data: chartSeries
+                                    }]}
+                                    type="bar"
+                                    height={350}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Gráfico Circular */}
+                    <div className="col-xl-4 col-lg-5">
+                        <div className="card mb-3">
+                            <div className="card-body">
+                                <ReactApexChart
+                                    options={pieChartOptions}
+                                    series={chartSeries}
+                                    type="donut"
+                                    height={350}
+                                />
                             </div>
                         </div>
                     </div>

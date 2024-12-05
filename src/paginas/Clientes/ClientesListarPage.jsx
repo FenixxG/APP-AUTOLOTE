@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AxiosPrivado } from '../../components/axios/Axios';
-import { ClientesListar } from '../../configuracion/apiUrls';
-import { mostrarAlerta } from '../../components/alertas/sweetAlert';
+import { ClientesListar, ClientesEliminar } from '../../configuracion/apiUrls';
+import { mostrarAlerta, mostrarAlertaPregunta } from '../../components/alertas/sweetAlert';
 import ClientesLista from '../../components/plantilla/Clientes/ClientesLista';
 
 const ClientesListarPage = () => {
@@ -26,6 +26,22 @@ const ClientesListarPage = () => {
         }
     };
 
+    const eliminarCliente = (id) => {
+        mostrarAlertaPregunta(async (confirmado) => {
+            if (confirmado) {
+                try {
+                    await AxiosPrivado.delete(`${ClientesEliminar}?id=${id}`);
+                    mostrarAlerta('Cliente eliminado exitosamente', 'success');
+                    // Actualizar la lista de clientes
+                    setClientes(clientes.filter(clientes => clientes.id !== id));
+                } catch (error) {
+                    console.error('Error al eliminar cliente:', error);
+                    mostrarAlerta('Error al eliminar el cliente', 'error');
+                }
+            }
+        }, '¿Está seguro que desea eliminar este cliente?');
+    };
+
     if (loading) {
         return <div>Cargando...</div>;
     }
@@ -33,6 +49,7 @@ const ClientesListarPage = () => {
     return (
         <ClientesLista
             clientes={clientes}
+            eliminarCliente={eliminarCliente}
         />
     );
 };

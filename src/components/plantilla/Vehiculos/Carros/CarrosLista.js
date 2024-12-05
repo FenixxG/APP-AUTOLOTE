@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const userDefaultImage = 'https://placehold.co/400';
 
 
-const CarrosLista = ({ carros }) => {
+const CarrosLista = ({ carros, eliminarCarro }) => {
     const API_IMAGE_URL = 'http://localhost:3001/api/imagenes/carros/';
     const navigate = useNavigate();
 
@@ -97,21 +97,13 @@ const CarrosLista = ({ carros }) => {
                                                         <td>
                                                             <button
                                                                 className="btn btn-outline-primary btn-sm me-2"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-primary"
-                                                                data-bs-title="Editar"
                                                                 onClick={() => navigate(`/app/vehiculos/carros/editar/${carro.id}`)}
                                                             >
                                                                 <FiEdit />
                                                             </button>
                                                             <button
                                                                 className="btn btn-outline-danger btn-sm"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                data-bs-custom-class="custom-tooltip-danger"
-                                                                data-bs-title="Eliminar"
-                                                                onClick={() => navigate(`/app/vehiculos/carros/eliminar/${carro.id}`)}
+                                                                onClick={() => eliminarCarro(carro.id)}
                                                             >
                                                                 <FiTrash2 />
                                                             </button>

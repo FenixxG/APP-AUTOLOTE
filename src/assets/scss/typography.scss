@@ -1,0 +1,204 @@
+body {
+  font-family: $body-font;
+  color: $body-color;
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $title-font;
+  font-weight: normal;
+  font-style: normal;
+  color: $title-color;
+  margin-top: 0px;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: inherit;
+}
+
+h1,
+.h1 {
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 66px;
+}
+h2,
+.h2 {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 56px;
+}
+h3,
+.h3 {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 48px;
+}
+h4,
+.h4 {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 46px;
+}
+h5,
+.h5 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 36px;
+}
+h6,
+.h6 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+a,
+.btn {
+  transition: $transition-5;
+}
+
+a:focus {
+  text-decoration: none !important;
+}
+a:focus,
+a:hover {
+  color: $primary-color;
+  text-decoration: none !important;
+}
+a,
+button,
+input {
+  outline: medium none !important;
+  color: $primary-color;
+  text-decoration: none;
+}
+
+a {
+  outline: medium none;
+  text-decoration: none;
+}
+p a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: $transition-5;
+}
+p a:hover {
+  color: $title-color;
+}
+.w-space {
+  white-space: nowrap;
+}
+p.text-secondary {
+  color: $title-color;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+hr {
+  margin: 0;
+  padding: 0px;
+  border-bottom: 1px solid $hr-border-color;
+  border-top: 0px;
+}
+
+hr.gray {
+  margin: 0;
+  padding: 0px;
+  border-bottom: 1px solid $hr-gray-border-color;
+  border-top: 0px;
+  opacity: 1;
+}
+
+label {
+  font-size: 15px;
+  font-weight: 400;
+  color: $gray-color;
+}
+.label {
+  color: $white-color !important;
+  font-size: 9px !important;
+}
+
+*::-moz-selection {
+  background: $primary-color;
+  color: $white-color;
+  text-shadow: none;
+}
+::-moz-selection {
+  background: $primary-color;
+  color: $white-color;
+  text-shadow: none;
+}
+::selection {
+  background: $primary-color;
+  color: $white-color;
+  text-shadow: none;
+}
+
+/*-------------------------------*/
+/* Blockquote */
+/*-------------------------------*/
+
+blockquote {
+  display: block;
+  background: $white-color;
+  position: relative;
+  font-size: 14px;
+  padding-left: 60px;
+  border-left: 5px solid $border-light-color;
+  font-style: italic;
+  padding-right: 0px;
+}
+blockquote::before {
+  content: '\201C';
+  font-family: Georgia, serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: $gray-2-color;
+  position: absolute;
+  left: 10px;
+  top: 25px;
+}
+blockquote::after {
+  content: '';
+}
+blockquote cite {
+  font-size: 14px;
+  margin-top: 15px;
+  display: block;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+/*==========================================================*/
+/* Responsive CSS */
+/*==========================================================*/
+@media only screen and (max-width: 767px) {
+  .blockquote {flex-wrap: wrap; padding: 30px;}
+}
+
+@media only screen and (max-width: 575px) {
+
+}

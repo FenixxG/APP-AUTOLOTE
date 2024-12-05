@@ -8,7 +8,7 @@ import BannerImg1 from '../../../assets/images/banner/home-bg-text.webp';
 import BannerImg2 from '../../../assets/images/banner/carro-banner.png';
 
 // SCSS
-import './style.scss';
+import '../../../styles/Banner/style.scss';
 
 function Banner() {
     return (

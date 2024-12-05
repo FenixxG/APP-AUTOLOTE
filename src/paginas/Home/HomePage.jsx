@@ -3,7 +3,7 @@ import { AxiosPrivado } from '../../components/axios/Axios';
 import { ClientesListar, EmpleadosListar, CarrosListar, MotocicletasListar } from '../../configuracion/apiUrls';
 import { mostrarAlerta } from '../../components/alertas/sweetAlert';
 import Home from '../../components/plantilla/Home';
-//import ReactApexChart from 'react-apexcharts';
+import ReactApexChart from 'react-apexcharts';
 
 const HomePage = () => {
     const [totales, setTotales] = useState({
@@ -53,7 +53,26 @@ const HomePage = () => {
         return <div>Cargando...</div>;
     }
 
-    return <Home totales={totales} />;
+    const chartOptions = {
+        chart: {
+            type: 'bar'
+        },
+        xaxis: {
+            categories: ['Clientes', 'Empleados', 'Carros', 'Motocicletas']
+        }
+    };
+
+    const chartSeries = [{
+        name: 'Totales',
+        data: [totales.clientes, totales.empleados, totales.carros, totales.motocicletas]
+    }];
+
+    return (
+        <div>
+            <Home totales={totales} />
+            <ReactApexChart options={chartOptions} series={chartSeries} type="bar" height={350} />
+        </div>
+    );
 };
 
 export default HomePage;
