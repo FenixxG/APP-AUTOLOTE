@@ -42,10 +42,10 @@ const Login = () => {
                         var token = json.Token;
                         mostrarAlerta('Bienvenido(a) ' + usuario.datoPersonales.nombreCompleto, "success");
                         await setLogin({ usuario: usuario, token: token });
-                        if (usuario.tipo == "cliente") {
-                            navigate('/app/clientes');
-                        } else if (usuario.tipo == "empleado") {
-                            navigate('/app/empleados');
+                        if (usuario.tipo == "Cliente") {
+                            navigate('/app/cliente/home');
+                        } else if (usuario.tipo == "Empleado") {
+                            navigate('/app/home');
                         }
                         else {
                             navigate('/app/home');

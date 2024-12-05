@@ -57,10 +57,13 @@ export const routes = createBrowserRouter(
 
             {/* Rutas protegidas */}
             <Route path="app" element={<AutenticacionRoute />}>
-                <Route path="home" element={<HomePage />} />
+                {/* <Route path="home" element={<HomePage />} /> */}
+                {/* Redirigir según el tipo de usuario */}
+                <Route index element={<Navigate to="home" />} />
 
                 {/* Rutas de Empleados con su layout */}
                 <Route element={<EmpleadoLayout />}>
+                    <Route path="home" element={<HomePage />} />
                     {/* Rutas de Empleados */}
                     <Route path="empleados">
                         <Route index element={<EmpleadosListarPage />} />
@@ -119,7 +122,7 @@ export const routes = createBrowserRouter(
                 </Route>
 
                 {/* Rutas de Clientes con su layout */}
-                <Route element={<ClienteLayout />}>
+                <Route path="cliente" element={<ClienteLayout />}>
                     <Route path="home" element={<PageHomeClientes />} />
                 </Route>
             </Route>

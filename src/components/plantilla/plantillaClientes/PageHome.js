@@ -7,8 +7,7 @@ function PageHome() {
     return (
         <React.StrictMode>
             <div className="page-wrapper">
-                <Header />
-                <Banner />
+               
             </div>
         </React.StrictMode>
     );

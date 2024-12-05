@@ -12,6 +12,7 @@ const UsuarioState = (props) => {
 
     const setLogin = async (data) => {
         try {
+            console.log("Datos recibidos en setLogin:", data);
             setUsuario(data.usuario);
             setToken(data.token);
         } catch (error) {

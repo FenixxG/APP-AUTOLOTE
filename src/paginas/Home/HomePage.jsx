@@ -13,30 +13,6 @@ const HomePage = () => {
         motocicletas: 0
     });
 
-    const options = {
-        chart: {
-            type: 'bar',
-            height: 350
-        },
-        plotOptions: {
-            bar: {
-                borderRadius: 4,
-                horizontal: true,
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        xaxis: {
-            categories: ['Clientes', 'Empleados', 'Carros', 'Motocicletas'],
-        }
-    };
-
-    const series = [{
-        name: 'Cantidad',
-        data: [totales.clientes, totales.empleados, totales.carros, totales.motocicletas]
-    }];
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
