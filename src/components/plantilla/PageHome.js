@@ -10,7 +10,7 @@ function PageHome() {
             <Header />
             <Navbar />
             <Home />
-            {/* <Footer /> */}
+            <Footer />
         </React.StrictMode>
     );
 }

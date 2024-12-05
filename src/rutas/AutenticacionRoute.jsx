@@ -11,6 +11,7 @@ export const AutenticacionRoute = ({ children }) => {
         mostrarAlerta("Token invalido");
         return <Navigate to="/login" />;
     }
+    //return <Outlet />;
     return (
         <div className="page-wrapper">
             <Header />
@@ -18,5 +19,5 @@ export const AutenticacionRoute = ({ children }) => {
             <Outlet />
             <Footer />
         </div>
-    );
+    )
 };

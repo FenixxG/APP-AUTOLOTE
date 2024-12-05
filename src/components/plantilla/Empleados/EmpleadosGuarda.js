@@ -141,37 +141,7 @@ const EmpleadosGuarda = ({ onSave, cargos }) => {
                                             {/* Primera pestaña: Datos Generales */}
                                             <div className={`tab-pane fade ${activeTab === 'datos' ? 'show active' : ''}`}>
                                                 <div className="row gx-3">
-                                                    <div className="col-sm-4 col-12">
-                                                        <div id="update-profile" className="mb-3">
-                                                            <Dropzone
-                                                                onDrop={handleImageUpload}
-                                                                accept={{
-                                                                    'image/*': ['.jpeg', '.jpg', '.png']
-                                                                }}
-                                                                maxFiles={1}
-                                                            >
-                                                                {({ getRootProps, getInputProps }) => (
-                                                                    <div {...getRootProps()} className="dropzone sm needsclick dz-clickable">
-                                                                        <input {...getInputProps()} />
-                                                                        <div className="dz-message needsclick">
-                                                                            {formData.imagen ? (
-                                                                                <img
-                                                                                    src={`${process.env.REACT_APP_API_URL}/imagenes/empleados/${formData.imagen}`}
-                                                                                    alt="Perfil"
-                                                                                    className="img-fluid"
-                                                                                />
-                                                                            ) : (
-                                                                                <button type="button" className="dz-button">
-                                                                                    Subir Imagen
-                                                                                </button>
-                                                                            )}
-                                                                        </div>
-                                                                    </div>
-                                                                )}
-                                                            </Dropzone>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-sm-8 col-12">
+                                                    <div className="col-12">
                                                         <div className="row gx-3">
                                                             <div className="col-6">
                                                                 <div className="mb-3">
@@ -210,7 +180,6 @@ const EmpleadosGuarda = ({ onSave, cargos }) => {
                                                                         tabIndex={5}
                                                                     />
                                                                 </div>
-
                                                                 <div className="mb-3">
                                                                     <label className="form-label">Sueldo</label>
                                                                     <input
@@ -271,7 +240,6 @@ const EmpleadosGuarda = ({ onSave, cargos }) => {
                                                                         tabIndex={6}
                                                                     />
                                                                 </div>
-
                                                                 <div className="mb-3">
                                                                     <label className="form-label">Cargo</label>
                                                                     <select
@@ -290,7 +258,6 @@ const EmpleadosGuarda = ({ onSave, cargos }) => {
                                                                         ))}
                                                                     </select>
                                                                 </div>
-
                                                                 <div className="mb-3">
                                                                     <label className="form-label">Contraseña</label>
                                                                     <input

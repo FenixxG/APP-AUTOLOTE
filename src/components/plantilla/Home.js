@@ -2,8 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiHome } from 'react-icons/fi';
 import { MdArrowForwardIos } from "react-icons/md";
+import { FiUsers } from 'react-icons/fi';
+import { GrUserWorker } from "react-icons/gr";
+import { PiMotorcycleFill } from "react-icons/pi";
+import { IoCarSport } from "react-icons/io5";
+import { useContextUsuario } from '../../contexto/usuario/UsuarioContext';
 
-const Home = () => {
+const Home = ({ totales }) => {
+    const { usuario } = useContextUsuario();
+
     return (
         <div className="app-body">
             <div className="container">
@@ -24,79 +31,92 @@ const Home = () => {
                 </div>
 
                 <div className="row gx-3">
+                    {/* Tarjeta de bienvenida */}
                     <div className="col-xl-6 col-sm-12 col-12">
                         <div className="card mb-3">
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-sm-8 col-12">
-                                        <h3 className="mb-3">Congratulations John</h3>
-                                        <p className="w-50">
-                                            You have resolved
-                                            <span className="text-success fw-bold">85%</span> more
-                                            tickets than last year.
-                                        </p>
-                                        <div id="tickets"></div>
-                                    </div>
-                                    <div className="col-sm-4 col-12">
-                                        <div className="text-end">
-                                            <img src="assets/images/sales.svg" className="img-150" alt="Bootstrap Gallery" />
-                                        </div>
-                                        <div className="mt-5 d-flex flex-wrap gap-3">
-                                            <div className="d-flex align-items-center">
-                                                <div className="icons-box md bg-info rounded-3 me-3">
-                                                    <i className="icon-add_task text-white fs-4"></i>
-                                                </div>
-                                                <div className="m-0">
-                                                    <h3 className="m-0 fw-semibold">960</h3>
-                                                    <p className="m-0 text-secondary">Resolved in 2024</p>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex align-items-center">
-                                                <div className="icons-box md bg-danger rounded-3 me-3">
-                                                    <i className="icon-add_task text-white fs-4"></i>
-                                                </div>
-                                                <div className="m-0">
-                                                    <h3 className="m-0 fw-semibold">630</h3>
-                                                    <p className="m-0 text-secondary">Resolved in 2023</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="col-12">
+                                        <h3 className="mb-3">¡Bienvenido {usuario.datoPersonales.primernombre || ''} {usuario.datoPersonales.primerapellido || ''}!</h3>
+                                        <p>Panel de control del sistema</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-xl-3 col-sm-6 col-12">
-                        <div className="card mb-3">
-                            <div className="card-body">
-                                <h5 className="card-title">Calls</h5>
-                                <div id="calls"></div>
-                            </div>
-                        </div>
-                        <div className="card mb-3">
-                            <div className="card-body">
-                                <div className="d-flex flex-row">
-                                    <div className="d-flex align-items-center">
-                                        <div className="border border-info rounded-4 icons-box md">
-                                            <i className="icon-support_agent text-info fs-3"></i>
+
+                    {/* Tarjetas de estadísticas */}
+                    <div className="col-xl-6 col-sm-12 col-12">
+                        <div className="row">
+                            {/* Tarjeta de Clientes */}
+                            <div className="col-sm-4">
+                                <div className="card mb-3">
+                                    <div className="card-body">
+                                        <div className="d-flex align-items-center">
+                                            <div className="border border-primary rounded-4 icons-box md">
+                                                <FiUsers />
+                                            </div>
+                                            <div className="ms-3">
+                                                <h3 className="m-0">{totales?.clientes || 0}</h3>
+                                                <p className="m-0 text-secondary">Clientes</p>
+                                            </div>
+                                            <div className="ms-auto">
+                                                <div id="sparkline1"></div>
+                                            </div>
                                         </div>
-                                        <div className="ms-2">
-                                            <h3 className="m-0">49</h3>
-                                            <p className="m-0 text-secondary">Agents Online</p>
-                                        </div>
-                                    </div>
-                                    <div className="ms-auto">
-                                        <div id="sparkline1"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-sm-6 col-12">
-                        <div className="card mb-3">
-                            <div className="card-body">
-                                <h5 className="card-title">Tickets Resolved</h5>
-                                <div id="callsByCountry" className="auto-align-graph"></div>
+
+                            {/* Tarjeta de Empleados */}
+                            <div className="col-sm-4">
+                                <div className="card mb-3">
+                                    <div className="card-body">
+                                        <div className="d-flex align-items-center">
+                                            <div className="border border-success rounded-4 icons-box md">
+                                                <GrUserWorker />
+                                            </div>
+                                            <div className="ms-3">
+                                                <h3 className="m-0">{totales?.empleados || 0}</h3>
+                                                <p className="m-0 text-secondary">Empleados</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Tarjeta de Carros */}
+                            <div className="col-sm-4">
+                                <div className="card mb-3">
+                                    <div className="card-body">
+                                        <div className="d-flex align-items-center">
+                                            <div className="border border-info rounded-4 icons-box md">
+                                                <IoCarSport />
+                                            </div>
+                                            <div className="ms-3">
+                                                <h3 className="m-0">{totales?.carros || 0}</h3>
+                                                <p className="m-0 text-secondary">Carros</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Tarjeta de Motocicletas */}
+                            <div className="col-sm-4">
+                                <div className="card mb-3">
+                                    <div className="card-body">
+                                        <div className="d-flex align-items-center">
+                                            <div className="border border-info rounded-4 icons-box md">
+                                                <PiMotorcycleFill />
+                                            </div>
+                                            <div className="ms-3">
+                                                <h3 className="m-0">{totales?.motocicletas || 0}</h3>
+                                                <p className="m-0 text-secondary">Motocicletas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

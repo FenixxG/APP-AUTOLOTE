@@ -1,17 +1,18 @@
 import React, { useEffect, useReducer, useState } from "react"
 import { EmpleadoContext } from "./EmpleadoContext"
 import { AxiosPrivado } from "../../components/axios/Axios";
-import { CargosListar, EmpleadosListar } from "../../configuracion/apiUrls";
+import { CargosListar, EmpleadosListar, CarrosListar, MotocicletasListar, ClientesListar } from "../../configuracion/apiUrls";
 import { useContextUsuario } from "../usuario/UsuarioContext";
 
 export const EmpleadoState = (props) => {
     const { token } = useContextUsuario();
     const [empleado, setEmpleado] = useState(null);
     const [listaEmpleados, setListaEmpleados] = useState([]);
+    const [listaClientes, setListaClientes] = useState([]);
     const [listaCargos, setListaCargos] = useState([]);
-    const [listaProductos, setListaProductos] = useState([]);
     const [listaServicios, setListaServicios] = useState([]);
-    const [listaCitas, setListaCitas] = useState([]);
+    const [listaCarros, setListaCarros] = useState([]);
+    const [listaMotocicletas, setListaMotocicletas] = useState([]);
     const [actualizar, setActualizar] = useState(false);
     useEffect(() => {
         Lista();
@@ -19,7 +20,11 @@ export const EmpleadoState = (props) => {
     const Lista = async () => {
         try {
             ActualizarLista(EmpleadosListar, setListaEmpleados);
+            ActualizarLista(ClientesListar, setListaClientes);
             ActualizarLista(CargosListar, setListaCargos);
+            //ActualizarLista(ServiciosListar, setListaServicios);
+            ActualizarLista(CarrosListar, setListaCarros);
+            ActualizarLista(MotocicletasListar, setListaMotocicletas);
         } catch (error) {
             console.log(error);
         }
@@ -39,17 +44,21 @@ export const EmpleadoState = (props) => {
     return (
         <EmpleadoContext.Provider value={{
             empleado: empleado,
-            listaProductos: listaProductos,
             listaServicios: listaServicios,
             listaEmpleados: listaEmpleados,
+            listaClientes: listaClientes,
             listaCargos: listaCargos,
+            listaCarros: listaCarros,
+            listaMotocicletas: listaMotocicletas,
             actualizar,
             setActualizar,
             setEmpleado,
-            setListaProductos,
             setListaServicios,
             setListaEmpleados,
+            setListaClientes,
             setListaCargos,
+            setListaCarros,
+            setListaMotocicletas,
             Lista,
             ActualizarLista
         }}>

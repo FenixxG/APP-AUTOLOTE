@@ -4,6 +4,7 @@ import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from '
 import { AutenticacionRoute } from './AutenticacionRoute';
 import PageHome from '../components/plantilla/PageHome';
 import PageHomeClientes from '../components/plantilla/plantillaClientes/PageHome';
+import HomePage from '../paginas/Home/HomePage';
 /* Rutas de autenticación */
 import Login from '../paginas/Login/Login';
 import RecuperarContrasena from '../paginas/Login/RecuperarContrasena';
@@ -33,6 +34,13 @@ import MotocicletasListarPage from '../paginas/Vehiculos/Motocicletas/Motociclet
 import MotocicletasGuardarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasGuardarPage';
 import MotocicletasActualizarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasActualizarPage';
 import MotocicletasEliminarPage from '../paginas/Vehiculos/Motocicletas/MotocicletasEliminarPage';
+/* servicios */
+import ServiciosListarPage from '../paginas/Servicios/ServiciosListarPage';
+import ServiciosGuardarPage from '../paginas/Servicios/ServiciosGuardarPage';
+import ServiciosActualizarPage from '../paginas/Servicios/ServiciosActualizarPage';
+import ServiciosEliminarPage from '../paginas/Servicios/ServiciosEliminarPage';
+/* facturas */
+import FacturasCrearPage from '../paginas/Facturas/FacturasCrearPage';
 /* RUTAS MOSTRADAS PARA LOS CLIENTES */
 /* LAYOUTS */
 import { ClienteLayout } from '../rutas/ClienteLayout';
@@ -49,7 +57,7 @@ export const routes = createBrowserRouter(
 
             {/* Rutas protegidas */}
             <Route path="app" element={<AutenticacionRoute />}>
-                <Route path="home" element={<PageHome />} />
+                <Route path="home" element={<HomePage />} />
 
                 {/* Rutas de Empleados con su layout */}
                 <Route element={<EmpleadoLayout />}>
@@ -93,6 +101,20 @@ export const routes = createBrowserRouter(
                             <Route path="editar/:id" element={<MotocicletasActualizarPage />} />
                             <Route path="eliminar/:id" element={<MotocicletasEliminarPage />} />
                         </Route>
+                    </Route>
+
+                    {/* Rutas de Servicios */}
+                    <Route path="servicios">
+                        <Route index element={<ServiciosListarPage />} />
+                        <Route path="guardar" element={<ServiciosGuardarPage />} />
+                        <Route path="editar/:id" element={<ServiciosActualizarPage />} />
+                        <Route path="eliminar/:id" element={<ServiciosEliminarPage />} />
+                    </Route>
+
+                    {/* Rutas de Facturas */}
+                    <Route path="facturas">
+                        <Route index element={<FacturasCrearPage />} />
+                        {/* <Route path="guardar" element={<FacturasCrearPage />} /> */}
                     </Route>
                 </Route>
 

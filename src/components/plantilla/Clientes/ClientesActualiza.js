@@ -1,70 +1,154 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FiHome } from 'react-icons/fi';
 import { MdArrowForwardIos } from "react-icons/md";
-import Dropzone from 'react-dropzone';
 import { AxiosImagen } from '../../axios/Axios';
-import { ClienteImagen } from '../../../configuracion/apiUrls';
-import { mostrarAlerta } from '../../../components/alertas/sweetAlert';
+import { ClienteImagen, ClienteActualizarImagen } from '../../../configuracion/apiUrls';
+import { mostrarAlertaOk, mostrarAlertaError } from '../../../components/alertas/sweetAlert';
+const userDefaultImage = 'https://placehold.co/400';
 
 const ClientesActualiza = ({ cliente, onUpdate }) => {
     const [activeTab, setActiveTab] = useState('datos');
     const [formData, setFormData] = useState({
-        ...cliente,
-        telefonos: cliente?.clientetelefonos || [],
-        direcciones: cliente?.clientedireccions || []
+        identidad: '',
+        rtn: '',
+        primernombre: '',
+        segundonombre: '',
+        primerapellido: '',
+        segundoapellido: '',
+        imagen: null,
+        correo: '',
+        clientetelefonos: [{ telefono: '' }],
+        clientedireccions: [{ direccion: '' }]
     });
+    console.log(formData);
 
-    // Agregar manejadores para teléfonos y direcciones
-    const handleChangeTelefonos = (index, value) => {
-        const newTelefonos = [...formData.telefonos];
-        newTelefonos[index] = { ...newTelefonos[index], telefono: value };
-        setFormData({ ...formData, telefonos: newTelefonos });
+    // Actualizar el formData cuando se reciban los datos del empleado
+    useEffect(() => {
+        if (cliente) {
+            setFormData({
+                identidad: cliente.identidad || '',
+                rtn: cliente.rtn || '',
+                primernombre: cliente.primernombre || '',
+                segundonombre: cliente.segundonombre || '',
+                primerapellido: cliente.primerapellido || '',
+                segundoapellido: cliente.segundoapellido || '',
+                imagen: cliente ? cliente.imagen : 'cliente.png',
+                correo: cliente.correo || '',
+                // Implementar la lógica condicional para teléfonos
+                clientetelefonos: cliente.clientetelefonos
+                    ? cliente.clientetelefonos
+                    : [{ telefono: '' }],
+                // Implementar la lógica condicional para direcciones
+                clientedireccions: cliente.clientedireccions
+                    ? cliente.clientedireccions
+                    : [{ direccion: '' }],
+            });
+
+        }
+    }, [cliente]);
+
+    const API_IMAGE_URL = 'http://localhost:3001/api/imagenes/clientes/';
+    const imagen = cliente?.imagen ? `${API_IMAGE_URL}${cliente.imagen}` : userDefaultImage;
+    console.log(imagen);
+
+    // Funciones para manejar cambios en teléfonos y direcciones
+    const handleTelefonoChange = (index, value) => {
+        const telefonos = [...formData.clientetelefonos];
+        telefonos[index] = { telefono: value };
+        setFormData({ ...formData, clientetelefonos: telefonos });
     };
 
-    const handleChangeDirecciones = (index, value) => {
-        const newDirecciones = [...formData.direcciones];
-        newDirecciones[index] = { ...newDirecciones[index], direccion: value };
-        setFormData({ ...formData, direcciones: newDirecciones });
+    const addTelefono = () => {
+        setFormData({
+            ...formData,
+            clientetelefonos: [...formData.clientetelefonos, { telefono: '' }]
+        });
     };
+
+    const handleDireccionChange = (index, value) => {
+        const direcciones = [...formData.clientedireccions];
+        direcciones[index] = { direccion: value };
+        setFormData({ ...formData, clientedireccions: direcciones });
+    };
+
+    const addDireccion = () => {
+        setFormData({
+            ...formData,
+            clientedireccions: [...formData.clientedireccions, { direccion: '' }]
+        });
+    };
+
+    const handleFileChange = async event => {
+        const fileObj = event.target.files && event.target.files[0];
+        if (!fileObj) {
+            return;
+        }
+        else {
+            try {
+                let formData = new FormData();
+                formData.append("imagen", event.target.files[0]);
+                await AxiosImagen.put(ClienteActualizarImagen + cliente.id,
+                    formData,
+                ).then((respuesta) => {
+                    console.log(respuesta);
+                    setFormData((prevState) => ({
+                        ...prevState,
+                        imagen: respuesta.data.imagen,
+                    }));
+                    //ActualizarLista(ClientesListar, setListaClientes);
+                    mostrarAlertaOk("Imagen actualizada correctamente");
+                }).catch((er) => {
+                    console.log(er);
+                    var msjError = "";
+                    switch (er.response.status) {
+                        case 400:
+                            if (er.response.data.error && Array.isArray(er.response.data.error)) {
+                                er.response.data.map(f => {
+                                    msjError += f.msg + '. '
+                                })
+                            }
+                            break;
+                        case 400:
+                            msjError = er.response.data.error;
+                            break;
+                        case 500:
+                            msjError = er.response.data.error;
+                            break;
+                        default:
+                            msjError = "Ocurrió un error desconocido.";
+                            break;
+                    }
+                    mostrarAlertaError(msjError, "error");
+                });
+            } catch (error) {
+                console.log(error);
+                mostrarAlertaError("Error al actualizar la imagen");
+            }
+        }
+    };
+
+    const SeleccionarImagen = () => {
+        console.log("Haciendo clic en SeleccionarImagen");
+        if (inputRef.current) {
+            inputRef.current.click();
+        }
+
+    };
+    const inputRef = useRef(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         onUpdate(formData);
-    };
-
-    const handleImageUpload = async (acceptedFiles) => {
-        try {
-            const file = acceptedFiles[0];
-            const formData = new FormData();
-            formData.append('imagen', file);
-            formData.append('id', cliente.id);
-
-            const response = await AxiosImagen.post(ClienteImagen, formData);
-
-            if (response.data.success) {
-                // Actualizar el estado local con la nueva imagen
-                setFormData(prev => ({
-                    ...prev,
-                    imagen: response.data.nombreArchivo
-                }));
-
-                // Mostrar mensaje de éxito
-                mostrarAlerta('Imagen actualizada con éxito', 'success');
-            }
-        } catch (error) {
-            console.log('Error al subir la imagen:', error);
-            mostrarAlerta('Error al subir la imagen', 'error');
-        }
-    };
-
-    const telefonos = cliente?.clientetelefonos || [];
-    const direcciones = cliente?.clientedireccions || [];
+    }
 
     return (
         <div className="app-body">
@@ -121,32 +205,35 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                 <div className="row gx-3">
                                                     <div className="col-sm-4 col-12">
                                                         <div id="update-profile" className="mb-3">
-                                                            <Dropzone
-                                                                onDrop={handleImageUpload}
-                                                                accept={{
-                                                                    'image/*': ['.jpeg', '.jpg', '.png']
-                                                                }}
-                                                                maxFiles={1}
-                                                            >
-                                                                {({ getRootProps, getInputProps }) => (
-                                                                    <div {...getRootProps()} className="dropzone sm needsclick dz-clickable">
-                                                                        <input {...getInputProps()} />
-                                                                        <div className="dz-message needsclick">
-                                                                            {cliente.imagen ? (
-                                                                                <img
-                                                                                    src={`${process.env.REACT_APP_API_URL}/imagenes/clientes/${cliente.imagen}`}
-                                                                                    alt="Perfil"
-                                                                                    className="img-fluid"
-                                                                                />
-                                                                            ) : (
-                                                                                <button type="button" className="dz-button">
-                                                                                    Actualizar Imagen
-                                                                                </button>
-                                                                            )}
-                                                                        </div>
-                                                                    </div>
-                                                                )}
-                                                            </Dropzone>
+                                                            <div className="text-center">
+                                                                <img
+                                                                    src={imagen}
+                                                                    className="me-2 img-fluid rounded-3"
+                                                                    style={{ maxHeight: '300px', width: 'auto' }}
+                                                                    alt={`${cliente.primernombre} ${cliente.primerapellido}`}
+                                                                    crossOrigin="anonymous"
+                                                                    onError={(e) => {
+                                                                        e.target.onerror = null;
+                                                                        e.target.src = userDefaultImage;
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <input
+                                                                type="file"
+                                                                style={{ display: 'none' }}
+                                                                ref={inputRef}
+                                                                onChange={handleFileChange}
+                                                                accept="image/*"
+                                                            />
+                                                            <div className="text-center mt-3">
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-outline-info"
+                                                                    onClick={SeleccionarImagen}
+                                                                >
+                                                                    Actualizar
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-sm-8 col-12">
@@ -158,7 +245,7 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="identidad"
-                                                                        value={formData.identidad || ''}
+                                                                        value={formData.identidad}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
@@ -168,7 +255,7 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="primernombre"
-                                                                        value={formData.primernombre || ''}
+                                                                        value={formData.primernombre}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
@@ -178,25 +265,10 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="primerapellido"
-                                                                        value={formData.primerapellido || ''}
+                                                                        value={formData.primerapellido}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
-                                                                {/*<div className="mb-3">
-                                                                    <label className="form-label">Nombre de Usuario</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control"
-                                                                        name="nombre"
-                                                                        value={formData.nombre || ''}
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                </div>
-                                                                <input
-                                                                    type="hidden"
-                                                                    name="tipoUsuario"
-                                                                    value={TIPO_USUARIO}
-                                                                />*/}
                                                             </div>
                                                             <div className="col-6">
                                                                 <div className="mb-3">
@@ -205,7 +277,7 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="rtn"
-                                                                        value={formData.rtn || ''}
+                                                                        value={formData.rtn}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
@@ -215,7 +287,7 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="segundonombre"
-                                                                        value={formData.segundonombre || ''}
+                                                                        value={formData.segundonombre}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
@@ -225,26 +297,10 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="segundoapellido"
-                                                                        value={formData.segundoapellido || ''}
+                                                                        value={formData.segundoapellido}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </div>
-                                                                {/*<div className="mb-3">
-                                                                    <label className="form-label">Contraseña</label>
-                                                                    <input
-                                                                        type={showPassword ? "text" : "password"}
-                                                                        className="form-control"
-                                                                        name="contrasena"
-                                                                        value={formData.contrasena || ''}
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                    <div className="password-toggle" onClick={togglePasswordVisibility}>
-                                                                        {showPassword ?
-                                                                            <AiOutlineEyeInvisible className="registro-input-icon" /> :
-                                                                            <AiOutlineEye className="registro-input-icon" />
-                                                                        }
-                                                                    </div>
-                                                                </div>*/}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -260,7 +316,7 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                             type="email"
                                                             className="form-control"
                                                             name="correo"
-                                                            value={formData.correo || ''}
+                                                            value={formData.correo}
                                                             onChange={handleChange}
                                                         />
                                                     </div>
@@ -268,35 +324,47 @@ const ClientesActualiza = ({ cliente, onUpdate }) => {
                                                     {/* Teléfonos */}
                                                     <div className="col-12">
                                                         <label className="form-label">Teléfonos</label>
-                                                        {telefonos.length > 0
-                                                            ? telefonos.map((tel, index) => (
-                                                                <div key={index} className="mb-2 d-flex gap-2">
-                                                                    <input
-                                                                        type="tel"
-                                                                        className="form-control"
-                                                                        value={tel.telefono || ''}
-                                                                        onChange={(e) => handleChangeTelefonos(index, e.target.value)}
-                                                                    />
-                                                                </div>
-                                                            ))
-                                                            : 'No disponible'}
+                                                        {formData.clientetelefonos.map((tel, index) => (
+                                                            <div key={index} className="mb-2 d-flex gap-2">
+                                                                <input
+                                                                    type="tel"
+                                                                    className="form-control"
+                                                                    value={tel.telefono}
+                                                                    onChange={(e) => handleTelefonoChange(index, e.target.value)}
+                                                                    placeholder="Número de teléfono"
+                                                                />
+                                                            </div>
+                                                        ))}
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-outline-primary btn-sm"
+                                                            onClick={addTelefono}
+                                                        >
+                                                            Agregar teléfono
+                                                        </button>
                                                     </div>
 
                                                     {/* Direcciones */}
                                                     <div className="col-12">
                                                         <label className="form-label">Direcciones</label>
-                                                        {direcciones.length > 0
-                                                            ? direcciones.map((dir, index) => (
-                                                                <div key={index} className="mb-2 d-flex gap-2">
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control"
-                                                                        value={dir.direccion || ''}
-                                                                        onChange={(e) => handleChangeDirecciones(index, e.target.value)}
-                                                                    />
-                                                                </div>
-                                                            ))
-                                                            : 'No disponible'}
+                                                        {formData.clientedireccions.map((dir, index) => (
+                                                            <div key={index} className="mb-2 d-flex gap-2">
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-control"
+                                                                    value={dir.direccion}
+                                                                    onChange={(e) => handleDireccionChange(index, e.target.value)}
+                                                                    placeholder="Dirección"
+                                                                />
+                                                            </div>
+                                                        ))}
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-outline-primary btn-sm"
+                                                            onClick={addDireccion}
+                                                        >
+                                                            Agregar dirección
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

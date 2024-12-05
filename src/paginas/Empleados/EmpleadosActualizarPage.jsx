@@ -33,28 +33,44 @@ const EmpleadosActualizarPage = () => {
 
     const handleUpdate = async (formData) => {
         try {
-            // Formateamos los datos según la estructura esperada por la API
-            const empleadoData = {
-                identidad: formData.identidad?.trim() || '',
-                rtn: formData.rtn?.trim() || '',
-                primernombre: formData.primernombre?.trim() || '',
-                segundonombre: formData.segundonombre?.trim() || '',
-                primerapellido: formData.primerapellido?.trim() || '',
-                segundoapellido: formData.segundoapellido?.trim() || '',
-                sueldo: Number(formData.sueldo) || 0,
-                estado: formData.estado || 'AC'
-            };
-
-            // Si hay una imagen nueva, la actualizamos
-            if (formData.imagen) {
-                const imageFormData = new FormData();
-                imageFormData.append('imagen', formData.imagen);
-                imageFormData.append('id', id);
-
-                await AxiosImagen.post(EmpleadoImagen, imageFormData);
+            // Validaciones básicas
+            if (!formData.identidad?.trim() || !formData.rtn?.trim() || !formData.correo?.trim()) {
+                mostrarAlerta('Todos los campos obligatorios deben estar llenos', 'error');
+                return;
             }
 
-            console.log('Datos a actualizar:', empleadoData);
+            // Formateamos los datos según la estructura esperada por la API
+            const empleadoData = {
+                identidad: formData.identidad.trim(),
+                rtn: formData.rtn.trim(),
+                primernombre: formData.primernombre.trim(),
+                segundonombre: formData.segundonombre.trim(),
+                primerapellido: formData.primerapellido.trim(),
+                segundoapellido: formData.segundoapellido.trim(),
+                sueldo: parseFloat(formData.sueldo) || 0,
+                estado: formData.estado,
+                correo: formData.correo.trim(),
+                telefonos: formData.empleadotelefonos
+                    .filter(t => t.telefono?.trim())
+                    .map(t => ({
+                        telefono: t.telefono.trim()
+                    })),
+                direcciones: formData.empleadodireccions
+                    .filter(d => d.direccion?.trim())
+                    .map(d => ({
+                        direccion: d.direccion.trim()
+                    }))
+            };
+
+            // Aseguramos que haya al menos un teléfono y una dirección
+            if (empleadoData.telefonos.length === 0) {
+                empleadoData.telefonos = [{ telefono: '' }];
+            }
+            if (empleadoData.direcciones.length === 0) {
+                empleadoData.direcciones = [{ direccion: '' }];
+            }
+
+            console.log('Datos a enviar:', empleadoData);
 
             const response = await AxiosPrivado.put(`${EmpleadosActualizar}?id=${id}`, empleadoData);
 
@@ -67,13 +83,12 @@ const EmpleadosActualizarPage = () => {
 
             let mensajeError = 'Error al actualizar el empleado';
 
-            // Capturamos el mensaje de error de la API
             if (error.response?.data?.mensaje) {
-                mensajeError = error.response.data.mensaje;
+                mensajeError = Array.isArray(error.response.data.mensaje)
+                    ? error.response.data.mensaje[0].msg
+                    : error.response.data.mensaje;
             } else if (error.response?.data?.error) {
                 mensajeError = error.response.data.error;
-            } else if (error.message) {
-                mensajeError = error.message;
             }
 
             mostrarAlerta(mensajeError, 'error');

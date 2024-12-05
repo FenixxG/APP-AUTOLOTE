@@ -10,7 +10,8 @@ export const ClientesListar = 'clientes/listar';
 export const ClientesBuscar = 'clientes/buscar';
 export const ClientesActualizar = 'clientes/editar';
 export const ClientesEliminar = 'clientes/eliminar';
-export const ClienteImagen = 'imagenes/clientes';
+export const ClienteImagen = 'imagenes/clientes/';
+export const ClienteActualizarImagen = 'archivos/imagenes/cliente?id=';
 
 // RUTAS DE CARGOS
 export const CargosListar = 'cargos/listar';
@@ -25,7 +26,8 @@ export const EmpleadosBuscar = 'empleados/buscar';
 export const EmpleadosGuardar = 'empleados/guardar';
 export const EmpleadosActualizar = 'empleados/editar';
 export const EmpleadosEliminar = 'empleados/eliminar';
-export const EmpleadoImagen = 'imagenes/empleados';
+export const EmpleadoImagen = 'imagenes/empleados/';
+export const EmpleadoActualizarImagen = 'archivos/imagenes/empleado?id=';
 
 // RUTAS DE CARROS
 export const CarrosListar = 'carros/listar';
@@ -33,7 +35,7 @@ export const CarrosBuscar = 'carros/buscar';
 export const CarrosGuardar = 'carros/guardar';
 export const CarrosActualizar = 'carros/editar';
 export const CarrosEliminar = 'carros/eliminar';
-export const CarroImagen = 'imagenes/carros';
+export const CarroImagen = 'imagenes/carros/';
 
 // RUTAS DE MOTOCICLETAS
 export const MotocicletasListar = 'motocicletas/listar';
@@ -41,5 +43,12 @@ export const MotocicletasBuscar = 'motocicletas/buscar';
 export const MotocicletasGuardar = 'motocicletas/guardar';
 export const MotocicletasActualizar = 'motocicletas/editar';
 export const MotocicletasEliminar = 'motocicletas/eliminar';
-export const MotocicletaImagen = 'imagenes/motocicletas';
+export const MotocicletaImagen = 'imagenes/motocicletas/';
+
+// RUTAS DE SERVICIOS
+export const ServiciosListar = 'servicios/listar';
+export const ServiciosBuscar = 'servicios/buscar';
+export const ServiciosGuardar = 'servicios/guardar';
+export const ServiciosActualizar = 'servicios/editar';
+export const ServiciosEliminar = 'servicios/eliminar';
 

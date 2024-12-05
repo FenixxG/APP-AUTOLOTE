@@ -5,6 +5,9 @@ import { GrUserWorker } from "react-icons/gr";
 import { GoGraph } from "react-icons/go";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { IoCarSport } from "react-icons/io5";
+import { GrUserManager } from "react-icons/gr"; 
+import { MdOutlineMiscellaneousServices } from "react-icons/md";
+
 
 const Navbar = () => {
     return (
@@ -43,7 +46,7 @@ const Navbar = () => {
                         {/* Cargos Link */}
                         <li className="nav-item">
                             <Link className="nav-link" to="/app/cargos">
-                                <GrUserWorker /> Cargos
+                                <GrUserManager  /> Cargos
                             </Link>
                         </li>
 
@@ -65,6 +68,13 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                             </ul>
+                        </li>
+
+                        {/* Servicios Link */}
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/app/servicios">
+                                <MdOutlineMiscellaneousServices /> Servicios
+                            </Link>
                         </li>
 
                         {/* Facturas Dropdown */}
