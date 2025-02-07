@@ -81,7 +81,7 @@ return (
             {/* Columna izquierda con el logo */}
             <div className="w-full md:w-1/2 bg-blue-900 flex items-center justify-center p-8">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-mVqLTVgNXh06Ro4iTkPgxPiSb9lwJz.png"
+                src="imagen"
                 alt="Palmerola International Airport Logo"
                 width={300}
                 height={100}
